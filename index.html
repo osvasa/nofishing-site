@@ -28,8 +28,8 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .hero{background:var(--red);padding:24px 48px 48px;display:flex;flex-direction:column;align-items:center;}
 .hero-fish-wrap{position:relative;width:220px;max-width:80%;margin-bottom:16px;animation:fishSway 6s ease-in-out infinite;}
 .hero-fish-wrap img{width:100%;display:block;animation:fishFloat 4s ease-in-out infinite;}
-@keyframes fishFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-@keyframes fishSway{0%,100%{transform:translateX(0);}50%{transform:translateX(4px);}}
+@keyframes fishFloat{0%,100%{transform:translateY(0) rotate(0deg);}25%{transform:translateY(-14px) rotate(-2deg);}50%{transform:translateY(0) rotate(0deg);}75%{transform:translateY(-14px) rotate(2deg);}}
+@keyframes fishSway{0%,100%{transform:translateX(0);}50%{transform:translateX(6px);}}
 .hero-text{max-width:520px;color:var(--white);text-align:center;}
 .hero-text h1{font-size:42px;font-weight:900;margin-bottom:10px;letter-spacing:-0.02em;}
 .hero-text p{font-size:14px;line-height:1.65;margin-bottom:8px;}
@@ -70,6 +70,8 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .faq-a{font-size:14px;line-height:1.7;}
 
 .footer-top{background:var(--white);padding:48px 60px;display:flex;justify-content:space-between;gap:40px;}
+.footer-col:first-child{max-width:500px;}
+@media(max-width:680px){.footer-top{flex-direction:column;padding:36px 24px;gap:28px;}.footer-col{max-width:100%!important;}}
 .footer-col h4{font-size:13px;font-weight:700;margin-bottom:12px;}
 .footer-col p,.footer-col a{font-size:13px;line-height:1.75;color:#555;text-decoration:none;display:block;}
 .footer-col a:hover{color:var(--red);}
@@ -183,7 +185,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 <div class="footer-top">
   <div class="footer-col">
     <h4>Our Mission</h4>
-    <p>At NøFishing AI, our goal is to make the internet a safer place for everyone. By leveraging AI technology, we aim to eliminate the risks of phishing and fraudulent websites, one user at a time.</p>
+    <p>At NøFishing AI, our goal is to make the internet safer for everyone — eliminating phishing and fraud, one user at a time.</p>
   </div>
   <div class="footer-col">
     <h4>Contact Us</h4>
