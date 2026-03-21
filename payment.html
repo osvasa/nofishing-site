@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NøFishing AI — Choose Your Plan</title>
+<meta name="description" content="Choose your NøFishing AI plan. AI-powered phishing protection starting at $4.99/month.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#EC220C;--black:#111111;--white:#ffffff;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;}
+
+nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo img{height:30px;width:auto;display:block;}
+
+.hero{background:var(--red);padding:48px 48px 40px;text-align:center;color:var(--white);}
+.hero h1{font-size:36px;font-weight:900;margin-bottom:10px;letter-spacing:-0.02em;}
+.hero p{font-size:16px;line-height:1.6;opacity:0.9;}
+
+.pricing{background:var(--white);padding:64px 48px;text-align:center;}
+.pricing-cards{display:flex;gap:24px;justify-content:center;align-items:stretch;flex-wrap:wrap;}
+.pricing-card{border:2px solid var(--red);border-radius:16px;width:340px;overflow:hidden;display:flex;flex-direction:column;}
+.pricing-card-header{background:var(--red);color:var(--white);padding:20px 16px 16px;font-size:32px;font-weight:900;letter-spacing:0.02em;text-transform:uppercase;}
+.pricing-card-wrap{position:relative;}
+.best-value-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;background:var(--black);color:var(--white);padding:3px 10px;border-radius:6px;z-index:1;white-space:nowrap;}
+.pricing-card-body{padding:28px 24px 24px;background:var(--white);flex:1;display:flex;flex-direction:column;}
+.price-amount{font-size:56px;font-weight:900;color:var(--black);line-height:1;letter-spacing:-0.02em;}
+.price-amount sup{font-size:24px;vertical-align:top;margin-top:8px;display:inline-block;font-weight:700;}
+.price-period{font-size:14px;color:#666;margin-bottom:20px;font-weight:600;}
+.price-features{list-style:none;text-align:left;font-size:13px;color:#333;line-height:1.6;margin-bottom:24px;flex:1;}
+.price-features li{margin-bottom:10px;padding-left:16px;position:relative;}
+.price-features li::before{content:'•';position:absolute;left:0;color:var(--red);font-weight:900;font-size:16px;line-height:1.4;}
+.btn-get{display:block;width:100%;background:var(--black);color:var(--white);border:none;border-radius:8px;padding:16px;font-family:'Inter',sans-serif;font-size:18px;font-weight:700;cursor:pointer;margin-top:auto;transition:background 0.2s;}
+.btn-get:hover{background:#333;}
+
+.footer-bottom{background:#222;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:space-between;padding:16px 48px;font-size:12px;line-height:1.7;}
+.footer-bottom-left strong{color:rgba(255,255,255,0.9);font-size:13px;font-weight:700;}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{color:rgba(255,255,255,0.6);font-size:12px;text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--white);}
+
+.page-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:var(--black);color:var(--white);z-index:200;overflow-y:auto;}
+.page-overlay.active{display:block;}
+.page-inner{max-width:700px;margin:0 auto;padding:48px 32px 64px;}
+.page-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;padding:0;margin-bottom:32px;opacity:0.7;transition:opacity 0.2s;}
+.page-back:hover{opacity:1;}
+.page-inner h1{font-size:32px;font-weight:900;color:var(--red);margin-bottom:8px;}
+.page-inner .page-updated{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:32px;}
+.page-inner h2{font-size:20px;font-weight:800;color:var(--red);margin:28px 0 12px;}
+.page-inner p,.page-inner li{font-size:14px;line-height:1.8;color:rgba(255,255,255,0.85);margin-bottom:12px;}
+.page-inner ul{list-style:none;padding:0;}
+.page-inner ul li{padding-left:16px;position:relative;}
+.page-inner ul li::before{content:'•';position:absolute;left:0;color:var(--red);font-weight:900;}
+.page-inner a{color:var(--red);text-decoration:none;font-weight:600;}
+.page-inner a:hover{text-decoration:underline;}
+
+@media(max-width:768px){.hero h1{font-size:28px;}.hero{padding:36px 24px 32px;}.pricing{padding:48px 24px;}.pricing-card,.pricing-card-wrap{width:100%!important;}}
+@media(max-width:520px){nav{padding:0 16px;}.nav-logo img{height:20px;}}
+@media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" style="text-decoration:none;">
+    <img src="images/logo.png" alt="NOFISHING AI" style="height:30px;width:auto;display:block;">
+  </a>
+</nav>
+
+<section class="hero">
+  <h1>You're one step away from full protection.</h1>
+  <p>Choose your plan and never get scammed again.</p>
+</section>
+
+<section class="pricing">
+  <div class="pricing-cards">
+    <div class="pricing-card">
+      <div class="pricing-card-header">MONTHLY</div>
+      <div class="pricing-card-body">
+        <div class="price-amount"><sup>$</sup>4.99</div>
+        <div class="price-period">/month</div>
+        <ul class="price-features">
+          <li>AI-powered phishing detection</li>
+          <li>Real-time website analysis</li>
+          <li>Automatic link and pop-up scanning</li>
+          <li>Continuous AI model updates</li>
+          <li>Zero configuration required</li>
+          <li>Runs silently in the background 24/7</li>
+        </ul>
+        <button class="btn-get" onclick="alert('Payment coming soon')">Start Now</button>
+      </div>
+    </div>
+    <div class="pricing-card-wrap">
+      <span class="best-value-badge">Best Value</span>
+      <div class="pricing-card">
+        <div class="pricing-card-header">YEARLY</div>
+        <div class="pricing-card-body">
+          <div class="price-amount"><sup>$</sup>49.99</div>
+          <div class="price-period">/year — save 17%</div>
+          <ul class="price-features">
+            <li>AI-powered phishing detection</li>
+            <li>Real-time website analysis</li>
+            <li>Automatic link and pop-up scanning</li>
+            <li>Continuous AI model updates</li>
+            <li>Zero configuration required</li>
+            <li>Runs silently in the background 24/7</li>
+          </ul>
+          <button class="btn-get" onclick="alert('Payment coming soon')">Start Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Privacy Policy Page -->
+<div id="page-privacy" class="page-overlay">
+  <div class="page-inner">
+    <button class="page-back" onclick="hidePage('privacy')">&#8592; Back</button>
+    <h1>Privacy Policy</h1>
+    <p class="page-updated">Last updated: March 20, 2026</p>
+    <h2>What We Do NOT Collect</h2>
+    <p>We do not store the URLs you visit. We do not access your passwords, personal data, or browsing history. We never sell your data. Ever.</p>
+    <h2>What We Collect</h2>
+    <ul>
+      <li>Your email address (for account authentication)</li>
+      <li>Subscription status (to verify active protection)</li>
+      <li>Payment is handled entirely by Stripe — we never see or store your card details</li>
+    </ul>
+    <h2>How We Use Your Data</h2>
+    <p>Your email is used solely to manage your account and send essential service communications. Nothing else.</p>
+    <h2>Third-Party Services</h2>
+    <ul>
+      <li>Stripe handles all payment processing securely</li>
+      <li>Supabase manages account authentication</li>
+    </ul>
+    <h2>Contact</h2>
+    <p><a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a></p>
+  </div>
+</div>
+
+<!-- Terms of Use Page -->
+<div id="page-terms" class="page-overlay">
+  <div class="page-inner">
+    <button class="page-back" onclick="hidePage('terms')">&#8592; Back</button>
+    <h1>Terms of Use</h1>
+    <p class="page-updated">Last updated: March 20, 2026</p>
+    <h2>Acceptance of Terms</h2>
+    <p>By installing or using NøFishing AI, you agree to these Terms of Use. If you do not agree, uninstall the extension and discontinue use.</p>
+    <h2>What NøFishing AI Does</h2>
+    <p>NøFishing AI is a browser extension that uses AI to detect and block phishing and scam websites in real time. It analyzes URLs, SSL certificates, and site patterns to protect you from fraud.</p>
+    <h2>Subscription &amp; Billing</h2>
+    <p>NøFishing AI is a paid subscription service. Plans are billed monthly ($4.99/month) or yearly ($49.99/year). You may cancel at any time. Cancellations take effect at the end of the current billing period — your protection remains active until then. No refunds are issued for unused time within a billing period.</p>
+    <h2>Limitation of Liability</h2>
+    <p>NøFishing AI provides real-time protection based on AI analysis. While we work to detect all threats, we cannot guarantee 100% detection of every phishing attempt. We are not liable for any damages resulting from undetected threats.</p>
+    <h2>Changes to Terms</h2>
+    <p>We may update these Terms at any time. Continued use of the service constitutes acceptance of the updated Terms.</p>
+    <h2>Contact</h2>
+    <p><a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a></p>
+  </div>
+</div>
+
+<!-- Contact Page -->
+<div id="page-contact" class="page-overlay">
+  <div class="page-inner">
+    <button class="page-back" onclick="hidePage('contact')">&#8592; Back</button>
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you.</p>
+    <div style="margin-top:8px;">
+      <a href="mailto:hello@nofishing.ai" style="font-size:18px;font-weight:700;">hello@nofishing.ai</a>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px;">We typically respond within 24 hours.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer-bottom">
+  <div class="footer-bottom-left">
+    <strong>AI-Powered Phishing Protection</strong>
+    Copyright &copy; 2026 NøFishing AI &mdash; All Rights Reserved.
+  </div>
+  <div class="footer-links">
+    <a href="#" onclick="showPage('privacy');return false;">Privacy Policy</a>
+    <a href="#" onclick="showPage('terms');return false;">Terms of Use</a>
+    <a href="#" onclick="showPage('contact');return false;">Contact Us</a>
+  </div>
+</div>
+
+<script>
+function showPage(id){document.getElementById('page-'+id).classList.add('active');document.body.style.overflow='hidden';}
+function hidePage(id){document.getElementById('page-'+id).classList.remove('active');document.body.style.overflow='';}
+</script>
+
+</body>
+</html>
