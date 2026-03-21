@@ -59,6 +59,16 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 @media(max-width:768px){.hero h1{font-size:28px;}.hero{padding:36px 24px 32px;}.pricing{padding:48px 24px;}.pricing-card,.pricing-card-wrap{width:100%!important;}}
 @media(max-width:520px){nav{padding:0 16px;}.nav-logo img{height:20px;}}
 @media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
+
+.store-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:300;align-items:center;justify-content:center;}
+.store-modal-overlay.active{display:flex;}
+.store-modal{background:var(--black);border:2px solid var(--red);border-radius:16px;padding:32px;max-width:400px;width:90%;text-align:center;color:var(--white);}
+.store-modal h3{font-size:20px;font-weight:900;margin-bottom:8px;}
+.store-modal p{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:24px;}
+.store-modal a{display:block;background:var(--red);color:var(--white);text-decoration:none;font-size:15px;font-weight:700;padding:12px;border-radius:8px;margin-bottom:10px;transition:opacity 0.2s;}
+.store-modal a:hover{opacity:0.9;}
+.store-modal-close{background:none;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:8px;transition:color 0.2s;}
+.store-modal-close:hover{color:var(--white);}
 </style>
 </head>
 <body>
@@ -89,7 +99,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
           <li>Zero configuration required</li>
           <li>Runs silently in the background 24/7</li>
         </ul>
-        <button class="btn-get" onclick="alert('Payment coming soon')">Start Now</button>
+        <button class="btn-get" onclick="goToStore()">Start Now</button>
       </div>
     </div>
     <div class="pricing-card-wrap">
@@ -107,7 +117,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
             <li>Zero configuration required</li>
             <li>Runs silently in the background 24/7</li>
           </ul>
-          <button class="btn-get" onclick="alert('Payment coming soon')">Start Now</button>
+          <button class="btn-get" onclick="goToStore()">Start Now</button>
         </div>
       </div>
     </div>
@@ -186,7 +196,23 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   </div>
 </div>
 
+<div id="store-modal" class="store-modal-overlay" onclick="if(event.target===this)closeStoreModal()">
+  <div class="store-modal">
+    <h3>Choose Your Browser</h3>
+    <p>Select your browser to install NøFishing AI.</p>
+    <a href="https://chrome.google.com/webstore" target="_blank">Chrome</a>
+    <a href="https://microsoftedge.microsoft.com/addons" target="_blank">Edge</a>
+    <a href="https://addons.mozilla.org" target="_blank">Firefox</a>
+    <a href="https://apps.apple.com" target="_blank">Safari</a>
+    <button class="store-modal-close" onclick="closeStoreModal()">Cancel</button>
+  </div>
+</div>
+
 <script>
+var STORE_URLS={chrome:'https://chrome.google.com/webstore',firefox:'https://addons.mozilla.org',safari:'https://apps.apple.com',edge:'https://microsoftedge.microsoft.com/addons'};
+function getBrowserStoreURL(){var ua=navigator.userAgent;if(ua.includes('Edg/'))return STORE_URLS.edge;if(ua.includes('Firefox/'))return STORE_URLS.firefox;if(ua.includes('Safari/')&&!ua.includes('Chrome'))return STORE_URLS.safari;if(ua.includes('Chrome'))return STORE_URLS.chrome;return null;}
+function goToStore(){var url=getBrowserStoreURL();if(url){window.open(url,'_blank');}else{document.getElementById('store-modal').classList.add('active');document.body.style.overflow='hidden';}}
+function closeStoreModal(){document.getElementById('store-modal').classList.remove('active');document.body.style.overflow='';}
 function showPage(id){document.getElementById('page-'+id).classList.add('active');document.body.style.overflow='hidden';}
 function hidePage(id){document.getElementById('page-'+id).classList.remove('active');document.body.style.overflow='';}
 </script>
