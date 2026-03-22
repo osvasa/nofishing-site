@@ -19,26 +19,19 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .hero h1{font-size:36px;font-weight:900;margin-bottom:10px;letter-spacing:-0.02em;}
 .hero p{font-size:16px;line-height:1.6;opacity:0.9;}
 
-.pricing{background:var(--white);padding:48px 48px 0;text-align:center;}
-.pricing-cards{display:flex;gap:24px;justify-content:center;align-items:stretch;flex-wrap:wrap;max-width:720px;margin:0 auto;}
-.pricing-card{border:2px solid var(--black);border-radius:16px;width:340px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;}
-.pricing-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08);}
-.pricing-card-header{background:var(--black);color:var(--white);padding:20px 16px 16px;font-size:32px;font-weight:900;letter-spacing:0.02em;text-transform:uppercase;transition:background 0.2s;}
-.pricing-card-wrap{position:relative;}
-.best-value-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;background:var(--black);color:var(--white);padding:3px 10px;border-radius:6px;z-index:1;white-space:nowrap;}
-.pricing-card-body{padding:28px 24px 24px;background:var(--white);flex:1;display:flex;flex-direction:column;}
-.price-amount{font-size:56px;font-weight:900;color:var(--black);line-height:1;letter-spacing:-0.02em;}
-.price-amount sup{font-size:24px;vertical-align:top;margin-top:8px;display:inline-block;font-weight:700;}
-.price-period{font-size:14px;color:#666;margin-bottom:20px;font-weight:600;}
-.price-features{list-style:none;text-align:left;font-size:13px;color:#333;line-height:1.6;margin-bottom:16px;flex:1;}
-.price-features li{margin-bottom:10px;padding-left:16px;position:relative;}
-.price-features li::before{content:'•';position:absolute;left:0;color:var(--red);font-weight:900;font-size:16px;line-height:1.4;}
-.pricing-card.selected{border-color:var(--red);}
-.pricing-card.selected .pricing-card-header{background:var(--red);}
+/* Plan summary */
+.checkout-section{background:var(--white);padding:48px 48px 0;}
+.checkout-wrap{max-width:520px;margin:0 auto;}
+.plan-summary{background:#f8f8f8;border-left:4px solid var(--red);border-radius:8px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.plan-summary-left{display:flex;align-items:center;gap:10px;}
+.plan-check{color:var(--red);font-size:20px;font-weight:900;flex-shrink:0;}
+.plan-name{font-size:17px;font-weight:800;color:var(--black);}
+.plan-switch{font-size:12px;font-weight:600;color:var(--red);background:none;border:none;font-family:'Inter',sans-serif;cursor:pointer;padding:0;transition:opacity 0.2s;white-space:nowrap;}
+.plan-switch:hover{text-decoration:underline;opacity:0.8;}
 
 /* Payment form */
-.payment-section{background:#f8f8f8;padding:48px 48px 64px;border-top:3px solid var(--red);}
-.payment-form-wrap{max-width:480px;margin:0 auto;}
+.payment-section{background:var(--white);padding:40px 48px 64px;}
+.payment-form-wrap{max-width:520px;margin:0 auto;}
 .payment-title{font-size:28px;font-weight:900;color:var(--black);text-align:center;margin-bottom:32px;}
 .pay-field{margin-bottom:18px;}
 .pay-field label{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#666;margin-bottom:6px;}
@@ -52,7 +45,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .btn-pay:hover{opacity:0.9;}
 .btn-pay:active{transform:scale(0.99);}
 .security-note{text-align:center;font-size:12px;color:#999;margin-top:16px;}
-.pay-divider{width:100%;height:1px;background:#eee;margin:0 auto 0;}
+
 
 .footer-bottom{background:#222;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:space-between;padding:16px 48px;font-size:12px;line-height:1.7;}
 .footer-bottom-left strong{color:rgba(255,255,255,0.9);font-size:13px;font-weight:700;}
@@ -75,7 +68,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .page-inner a{color:var(--red);text-decoration:none;font-weight:600;}
 .page-inner a:hover{text-decoration:underline;}
 
-@media(max-width:768px){.hero h1{font-size:28px;}.hero{padding:36px 24px 32px;}.pricing{padding:36px 24px 0;}.pricing-card,.pricing-card-wrap{width:100%!important;}.payment-section{padding:36px 24px 48px;}}
+@media(max-width:768px){.hero h1{font-size:28px;}.hero{padding:36px 24px 32px;}.checkout-section{padding:36px 24px 0;}.payment-section{padding:28px 24px 48px;}.plan-summary{flex-direction:column;align-items:flex-start;}}
 @media(max-width:520px){nav{padding:0 16px;}.nav-logo img{height:20px;}}
 @media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
 </style>
@@ -93,47 +86,17 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   <p>Choose your plan and never get scammed again.</p>
 </section>
 
-<section class="pricing">
-  <div class="pricing-cards">
-    <div class="pricing-card" id="card-monthly" onclick="selectPlan('monthly')">
-      <div class="pricing-card-header">MONTHLY</div>
-      <div class="pricing-card-body">
-        <div class="price-amount"><sup>$</sup>4.99</div>
-        <div class="price-period">/month</div>
-        <ul class="price-features">
-          <li>AI-powered phishing detection</li>
-          <li>Real-time website analysis</li>
-          <li>Automatic link and pop-up scanning</li>
-          <li>Continuous AI model updates</li>
-          <li>Zero configuration required</li>
-          <li>Runs silently in the background 24/7</li>
-        </ul>
-
+<section class="checkout-section">
+  <div class="checkout-wrap">
+    <div class="plan-summary" id="plan-summary">
+      <div class="plan-summary-left">
+        <span class="plan-check">&#10003;</span>
+        <span class="plan-name" id="plan-name">Monthly Plan &mdash; $4.99/month</span>
       </div>
-    </div>
-    <div class="pricing-card-wrap">
-      <span class="best-value-badge">Best Value</span>
-      <div class="pricing-card" id="card-yearly" onclick="selectPlan('yearly')">
-        <div class="pricing-card-header">YEARLY</div>
-        <div class="pricing-card-body">
-          <div class="price-amount"><sup>$</sup>49.99</div>
-          <div class="price-period">/year — save 17%</div>
-          <ul class="price-features">
-            <li>AI-powered phishing detection</li>
-            <li>Real-time website analysis</li>
-            <li>Automatic link and pop-up scanning</li>
-            <li>Continuous AI model updates</li>
-            <li>Zero configuration required</li>
-            <li>Runs silently in the background 24/7</li>
-          </ul>
-
-        </div>
-      </div>
+      <button class="plan-switch" id="plan-switch" onclick="togglePlan()">Switch to Yearly &mdash; $49.99/year and save 17%</button>
     </div>
   </div>
 </section>
-
-<div class="pay-divider"></div>
 
 <section class="payment-section">
   <div class="payment-form-wrap">
@@ -278,25 +241,22 @@ var currentPlan='monthly';
 
 function selectPlan(plan){
   currentPlan=plan;
-  var m=document.getElementById('card-monthly');
-  var y=document.getElementById('card-yearly');
-  m.classList.remove('selected');
-  y.classList.remove('selected');
-  if(plan==='yearly'){
-    y.classList.add('selected');
-  }else{
-    m.classList.add('selected');
-  }
-  updatePayButton();
-}
-
-function updatePayButton(){
+  var name=document.getElementById('plan-name');
+  var sw=document.getElementById('plan-switch');
   var btn=document.getElementById('btn-pay');
-  if(currentPlan==='yearly'){
+  if(plan==='yearly'){
+    name.innerHTML='Yearly Plan &mdash; $49.99/year &mdash; save 17%';
+    sw.innerHTML='Switch to Monthly &mdash; $4.99/month';
     btn.innerHTML='Start My Protection &mdash; $49.99/year';
   }else{
+    name.innerHTML='Monthly Plan &mdash; $4.99/month';
+    sw.innerHTML='Switch to Yearly &mdash; $49.99/year and save 17%';
     btn.innerHTML='Start My Protection &mdash; $4.99/month';
   }
+}
+
+function togglePlan(){
+  selectPlan(currentPlan==='monthly'?'yearly':'monthly');
 }
 
 function showPage(id){document.getElementById('page-'+id).classList.add('active');document.body.style.overflow='hidden';}
