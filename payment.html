@@ -19,9 +19,10 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .hero h1{font-size:36px;font-weight:900;margin-bottom:10px;letter-spacing:-0.02em;}
 .hero p{font-size:16px;line-height:1.6;opacity:0.9;}
 
-.pricing{background:var(--white);padding:64px 48px;text-align:center;}
-.pricing-cards{display:flex;gap:24px;justify-content:center;align-items:stretch;flex-wrap:wrap;}
-.pricing-card{border:2px solid var(--red);border-radius:16px;width:340px;overflow:hidden;display:flex;flex-direction:column;}
+.pricing{background:var(--white);padding:48px 48px 0;text-align:center;}
+.pricing-cards{display:flex;gap:24px;justify-content:center;align-items:stretch;flex-wrap:wrap;max-width:720px;margin:0 auto;}
+.pricing-card{border:2px solid var(--red);border-radius:16px;width:340px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;}
+.pricing-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08);}
 .pricing-card-header{background:var(--red);color:var(--white);padding:20px 16px 16px;font-size:32px;font-weight:900;letter-spacing:0.02em;text-transform:uppercase;}
 .pricing-card-wrap{position:relative;}
 .best-value-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;background:var(--black);color:var(--white);padding:3px 10px;border-radius:6px;z-index:1;white-space:nowrap;}
@@ -29,11 +30,32 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .price-amount{font-size:56px;font-weight:900;color:var(--black);line-height:1;letter-spacing:-0.02em;}
 .price-amount sup{font-size:24px;vertical-align:top;margin-top:8px;display:inline-block;font-weight:700;}
 .price-period{font-size:14px;color:#666;margin-bottom:20px;font-weight:600;}
-.price-features{list-style:none;text-align:left;font-size:13px;color:#333;line-height:1.6;margin-bottom:24px;flex:1;}
+.price-features{list-style:none;text-align:left;font-size:13px;color:#333;line-height:1.6;margin-bottom:16px;flex:1;}
 .price-features li{margin-bottom:10px;padding-left:16px;position:relative;}
 .price-features li::before{content:'•';position:absolute;left:0;color:var(--red);font-weight:900;font-size:16px;line-height:1.4;}
-.btn-get{display:block;width:100%;background:var(--black);color:var(--white);border:none;border-radius:8px;padding:16px;font-family:'Inter',sans-serif;font-size:18px;font-weight:700;cursor:pointer;margin-top:auto;transition:background 0.2s;}
-.btn-get:hover{background:#333;}
+.switch-plan{display:block;text-align:center;font-size:12px;font-weight:600;color:var(--red);cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;padding:0;margin-top:auto;transition:opacity 0.2s;}
+.switch-plan:hover{text-decoration:underline;opacity:0.8;}
+
+.pricing-card.selected{border-color:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,0.25);}
+.pricing-card.selected .pricing-card-header{background:#22C55E;}
+
+/* Payment form */
+.payment-section{background:var(--white);padding:48px 48px 64px;}
+.payment-form-wrap{max-width:480px;margin:0 auto;}
+.payment-title{font-size:24px;font-weight:900;color:var(--black);text-align:left;margin-bottom:28px;}
+.pay-field{margin-bottom:18px;}
+.pay-field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#888;margin-bottom:6px;}
+.pay-field input,.pay-field select{width:100%;padding:13px 14px;border:1px solid #ddd;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--black);background:var(--white);transition:border-color 0.2s;-webkit-appearance:none;appearance:none;}
+.pay-field input:focus,.pay-field select:focus{outline:none;border-color:var(--red);}
+.pay-field input::placeholder{color:#bbb;}
+.pay-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.pay-row{display:flex;gap:16px;}
+.pay-row .pay-field{flex:1;}
+.btn-pay{display:block;width:100%;padding:18px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:18px;font-weight:800;cursor:pointer;transition:opacity 0.15s;margin-top:8px;}
+.btn-pay:hover{opacity:0.9;}
+.btn-pay:active{transform:scale(0.99);}
+.security-note{text-align:center;font-size:12px;color:#999;margin-top:16px;}
+.pay-divider{width:100%;height:1px;background:#eee;margin:0 auto 0;}
 
 .footer-bottom{background:#222;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:space-between;padding:16px 48px;font-size:12px;line-height:1.7;}
 .footer-bottom-left strong{color:rgba(255,255,255,0.9);font-size:13px;font-weight:700;}
@@ -56,21 +78,9 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .page-inner a{color:var(--red);text-decoration:none;font-weight:600;}
 .page-inner a:hover{text-decoration:underline;}
 
-.pricing-card.selected{border-color:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,0.25);}
-.pricing-card.selected .btn-get{background:var(--red);}
-@media(max-width:768px){.hero h1{font-size:28px;}.hero{padding:36px 24px 32px;}.pricing{padding:48px 24px;}.pricing-card,.pricing-card-wrap{width:100%!important;}}
+@media(max-width:768px){.hero h1{font-size:28px;}.hero{padding:36px 24px 32px;}.pricing{padding:36px 24px 0;}.pricing-card,.pricing-card-wrap{width:100%!important;}.payment-section{padding:36px 24px 48px;}}
 @media(max-width:520px){nav{padding:0 16px;}.nav-logo img{height:20px;}}
 @media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
-
-.store-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:300;align-items:center;justify-content:center;}
-.store-modal-overlay.active{display:flex;}
-.store-modal{background:var(--black);border:2px solid var(--red);border-radius:16px;padding:32px;max-width:400px;width:90%;text-align:center;color:var(--white);}
-.store-modal h3{font-size:20px;font-weight:900;margin-bottom:8px;}
-.store-modal p{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:24px;}
-.store-modal a{display:block;background:var(--red);color:var(--white);text-decoration:none;font-size:15px;font-weight:700;padding:12px;border-radius:8px;margin-bottom:10px;transition:opacity 0.2s;}
-.store-modal a:hover{opacity:0.9;}
-.store-modal-close{background:none;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:8px;transition:color 0.2s;}
-.store-modal-close:hover{color:var(--white);}
 </style>
 </head>
 <body>
@@ -88,7 +98,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 
 <section class="pricing">
   <div class="pricing-cards">
-    <div class="pricing-card" id="card-monthly">
+    <div class="pricing-card" id="card-monthly" onclick="selectPlan('monthly')">
       <div class="pricing-card-header">MONTHLY</div>
       <div class="pricing-card-body">
         <div class="price-amount"><sup>$</sup>4.99</div>
@@ -101,12 +111,12 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
           <li>Zero configuration required</li>
           <li>Runs silently in the background 24/7</li>
         </ul>
-        <button class="btn-get" onclick="goToStore()">Start Now</button>
+        <button class="switch-plan" onclick="event.stopPropagation();selectPlan('monthly')">Select this plan</button>
       </div>
     </div>
     <div class="pricing-card-wrap">
       <span class="best-value-badge">Best Value</span>
-      <div class="pricing-card" id="card-yearly">
+      <div class="pricing-card" id="card-yearly" onclick="selectPlan('yearly')">
         <div class="pricing-card-header">YEARLY</div>
         <div class="pricing-card-body">
           <div class="price-amount"><sup>$</sup>49.99</div>
@@ -119,10 +129,78 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
             <li>Zero configuration required</li>
             <li>Runs silently in the background 24/7</li>
           </ul>
-          <button class="btn-get" onclick="goToStore()">Start Now</button>
+          <button class="switch-plan" onclick="event.stopPropagation();selectPlan('yearly')">Select this plan</button>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="pay-divider"></div>
+
+<section class="payment-section">
+  <div class="payment-form-wrap">
+    <div class="payment-title">Payment Details</div>
+    <form id="payment-form" onsubmit="return false;">
+      <div class="pay-field">
+        <label for="pay-name">Name on Card</label>
+        <input id="pay-name" type="text" placeholder="Jane Smith" autocomplete="cc-name"/>
+      </div>
+      <div class="pay-field">
+        <label for="pay-card">Card Number</label>
+        <input id="pay-card" type="text" placeholder="1234 5678 9012 3456" autocomplete="cc-number" maxlength="19"/>
+      </div>
+      <div class="pay-row">
+        <div class="pay-field">
+          <label for="pay-exp">Expiration Date</label>
+          <input id="pay-exp" type="text" placeholder="MM / YY" autocomplete="cc-exp" maxlength="7"/>
+        </div>
+        <div class="pay-field">
+          <label for="pay-cvv">CVV</label>
+          <input id="pay-cvv" type="text" placeholder="123" autocomplete="cc-csc" maxlength="4"/>
+        </div>
+      </div>
+      <div class="pay-field">
+        <label for="pay-address">Billing Address</label>
+        <input id="pay-address" type="text" placeholder="123 Main St" autocomplete="street-address"/>
+      </div>
+      <div class="pay-row">
+        <div class="pay-field">
+          <label for="pay-city">City</label>
+          <input id="pay-city" type="text" placeholder="New York" autocomplete="address-level2"/>
+        </div>
+        <div class="pay-field">
+          <label for="pay-zip">Zip Code</label>
+          <input id="pay-zip" type="text" placeholder="10001" autocomplete="postal-code"/>
+        </div>
+      </div>
+      <div class="pay-field">
+        <label for="pay-country">Country</label>
+        <select id="pay-country" autocomplete="country">
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="GB">United Kingdom</option>
+          <option value="AU">Australia</option>
+          <option value="DE">Germany</option>
+          <option value="FR">France</option>
+          <option value="ES">Spain</option>
+          <option value="IT">Italy</option>
+          <option value="NL">Netherlands</option>
+          <option value="SE">Sweden</option>
+          <option value="NO">Norway</option>
+          <option value="DK">Denmark</option>
+          <option value="FI">Finland</option>
+          <option value="JP">Japan</option>
+          <option value="KR">South Korea</option>
+          <option value="BR">Brazil</option>
+          <option value="MX">Mexico</option>
+          <option value="IN">India</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-pay" id="btn-pay">Pay Now &mdash; $4.99/month</button>
+    </form>
+    <div class="security-note">&#128274; Secured by Stripe. We never store your card details.</div>
   </div>
 </section>
 
@@ -198,23 +276,32 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   </div>
 </div>
 
-<div id="store-modal" class="store-modal-overlay" onclick="if(event.target===this)closeStoreModal()">
-  <div class="store-modal">
-    <h3>Choose Your Browser</h3>
-    <p>Select your browser to install NøFishing AI.</p>
-    <a href="https://chrome.google.com/webstore" target="_blank">Chrome</a>
-    <a href="https://microsoftedge.microsoft.com/addons" target="_blank">Edge</a>
-    <a href="https://addons.mozilla.org" target="_blank">Firefox</a>
-    <a href="https://apps.apple.com" target="_blank">Safari</a>
-    <button class="store-modal-close" onclick="closeStoreModal()">Cancel</button>
-  </div>
-</div>
-
 <script>
-var STORE_URLS={chrome:'https://chrome.google.com/webstore',firefox:'https://addons.mozilla.org',safari:'https://apps.apple.com',edge:'https://microsoftedge.microsoft.com/addons'};
-function getBrowserStoreURL(){var ua=navigator.userAgent;if(ua.includes('Edg/'))return STORE_URLS.edge;if(ua.includes('Firefox/'))return STORE_URLS.firefox;if(ua.includes('Safari/')&&!ua.includes('Chrome'))return STORE_URLS.safari;if(ua.includes('Chrome'))return STORE_URLS.chrome;return null;}
-function goToStore(){var url=getBrowserStoreURL();if(url){window.open(url,'_blank');}else{document.getElementById('store-modal').classList.add('active');document.body.style.overflow='hidden';}}
-function closeStoreModal(){document.getElementById('store-modal').classList.remove('active');document.body.style.overflow='';}
+var currentPlan='monthly';
+
+function selectPlan(plan){
+  currentPlan=plan;
+  var m=document.getElementById('card-monthly');
+  var y=document.getElementById('card-yearly');
+  m.classList.remove('selected');
+  y.classList.remove('selected');
+  if(plan==='yearly'){
+    y.classList.add('selected');
+  }else{
+    m.classList.add('selected');
+  }
+  updatePayButton();
+}
+
+function updatePayButton(){
+  var btn=document.getElementById('btn-pay');
+  if(currentPlan==='yearly'){
+    btn.innerHTML='Pay Now &mdash; $49.99/year';
+  }else{
+    btn.innerHTML='Pay Now &mdash; $4.99/month';
+  }
+}
+
 function showPage(id){document.getElementById('page-'+id).classList.add('active');document.body.style.overflow='hidden';}
 function hidePage(id){document.getElementById('page-'+id).classList.remove('active');document.body.style.overflow='';}
 
@@ -222,12 +309,10 @@ function hidePage(id){document.getElementById('page-'+id).classList.remove('acti
 (function(){
   var params=new URLSearchParams(window.location.search);
   var plan=params.get('plan');
-  if(plan==='yearly'){
-    var el=document.getElementById('card-yearly');
-    if(el){el.classList.add('selected');el.scrollIntoView({behavior:'smooth',block:'center'});}
-  }else if(plan==='monthly'){
-    var el=document.getElementById('card-monthly');
-    if(el){el.classList.add('selected');el.scrollIntoView({behavior:'smooth',block:'center'});}
+  if(plan==='yearly'||plan==='monthly'){
+    selectPlan(plan);
+  }else{
+    selectPlan('monthly');
   }
 })();
 </script>
