@@ -21,9 +21,9 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 
 .pricing{background:var(--white);padding:48px 48px 0;text-align:center;}
 .pricing-cards{display:flex;gap:24px;justify-content:center;align-items:stretch;flex-wrap:wrap;max-width:720px;margin:0 auto;}
-.pricing-card{border:2px solid var(--red);border-radius:16px;width:340px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;}
+.pricing-card{border:2px solid var(--black);border-radius:16px;width:340px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;}
 .pricing-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08);}
-.pricing-card-header{background:var(--red);color:var(--white);padding:20px 16px 16px;font-size:32px;font-weight:900;letter-spacing:0.02em;text-transform:uppercase;}
+.pricing-card-header{background:var(--black);color:var(--white);padding:20px 16px 16px;font-size:32px;font-weight:900;letter-spacing:0.02em;text-transform:uppercase;transition:background 0.2s;}
 .pricing-card-wrap{position:relative;}
 .best-value-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;background:var(--black);color:var(--white);padding:3px 10px;border-radius:6px;z-index:1;white-space:nowrap;}
 .pricing-card-body{padding:28px 24px 24px;background:var(--white);flex:1;display:flex;flex-direction:column;}
@@ -33,19 +33,16 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .price-features{list-style:none;text-align:left;font-size:13px;color:#333;line-height:1.6;margin-bottom:16px;flex:1;}
 .price-features li{margin-bottom:10px;padding-left:16px;position:relative;}
 .price-features li::before{content:'•';position:absolute;left:0;color:var(--red);font-weight:900;font-size:16px;line-height:1.4;}
-.switch-plan{display:block;text-align:center;font-size:12px;font-weight:600;color:var(--red);cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;padding:0;margin-top:auto;transition:opacity 0.2s;}
-.switch-plan:hover{text-decoration:underline;opacity:0.8;}
-
-.pricing-card.selected{border-color:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,0.25);}
-.pricing-card.selected .pricing-card-header{background:#22C55E;}
+.pricing-card.selected{border-color:var(--red);}
+.pricing-card.selected .pricing-card-header{background:var(--red);}
 
 /* Payment form */
-.payment-section{background:var(--white);padding:48px 48px 64px;}
+.payment-section{background:#f8f8f8;padding:48px 48px 64px;border-top:3px solid var(--red);}
 .payment-form-wrap{max-width:480px;margin:0 auto;}
-.payment-title{font-size:24px;font-weight:900;color:var(--black);text-align:left;margin-bottom:28px;}
+.payment-title{font-size:28px;font-weight:900;color:var(--black);text-align:center;margin-bottom:32px;}
 .pay-field{margin-bottom:18px;}
-.pay-field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#888;margin-bottom:6px;}
-.pay-field input,.pay-field select{width:100%;padding:13px 14px;border:1px solid #ddd;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--black);background:var(--white);transition:border-color 0.2s;-webkit-appearance:none;appearance:none;}
+.pay-field label{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#666;margin-bottom:6px;}
+.pay-field input,.pay-field select{width:100%;padding:13px 14px;border:1px solid #ddd;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;color:var(--black);background:var(--white);transition:border-color 0.2s;-webkit-appearance:none;appearance:none;}
 .pay-field input:focus,.pay-field select:focus{outline:none;border-color:var(--red);}
 .pay-field input::placeholder{color:#bbb;}
 .pay-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
@@ -111,7 +108,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
           <li>Zero configuration required</li>
           <li>Runs silently in the background 24/7</li>
         </ul>
-        <button class="switch-plan" onclick="event.stopPropagation();selectPlan('monthly')">Select this plan</button>
+
       </div>
     </div>
     <div class="pricing-card-wrap">
@@ -129,7 +126,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
             <li>Zero configuration required</li>
             <li>Runs silently in the background 24/7</li>
           </ul>
-          <button class="switch-plan" onclick="event.stopPropagation();selectPlan('yearly')">Select this plan</button>
+
         </div>
       </div>
     </div>
@@ -198,7 +195,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
           <option value="other">Other</option>
         </select>
       </div>
-      <button type="submit" class="btn-pay" id="btn-pay">Pay Now &mdash; $4.99/month</button>
+      <button type="submit" class="btn-pay" id="btn-pay">Start My Protection &mdash; $4.99/month</button>
     </form>
     <div class="security-note">&#128274; Secured by Stripe. We never store your card details.</div>
   </div>
@@ -296,9 +293,9 @@ function selectPlan(plan){
 function updatePayButton(){
   var btn=document.getElementById('btn-pay');
   if(currentPlan==='yearly'){
-    btn.innerHTML='Pay Now &mdash; $49.99/year';
+    btn.innerHTML='Start My Protection &mdash; $49.99/year';
   }else{
-    btn.innerHTML='Pay Now &mdash; $4.99/month';
+    btn.innerHTML='Start My Protection &mdash; $4.99/month';
   }
 }
 
