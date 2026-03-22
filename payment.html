@@ -19,7 +19,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 
 /* 3-column grid */
 .checkout-section{background:var(--red);padding:24px 24px 48px;}
-.checkout-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 144px;gap:24px;align-items:stretch;}
+.checkout-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:144px 1fr 1fr;gap:24px;align-items:stretch;}
 
 /* Columns 1 & 2 shared */
 .col{background:var(--black);border-radius:12px;padding:32px;color:var(--white);display:flex;flex-direction:column;}
@@ -112,23 +112,9 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 <section class="checkout-section">
   <div class="checkout-grid">
 
-    <!-- COLUMN 1: PLAN SUMMARY -->
-    <div class="col" id="plan-summary">
-      <div class="col-title">Your Protection</div>
-      <div class="col-divider"></div>
-      <div class="plan-check-wrap"><span class="plan-check-icon">&#10003;</span></div>
-      <div class="plan-label" id="plan-label">Monthly Protection</div>
-      <div class="plan-price-lg" id="plan-price">$4.99/month</div>
-      <div class="col-divider"></div>
-      <ul class="plan-benefits">
-        <li>AI-powered phishing detection</li>
-        <li>Real-time website analysis</li>
-        <li>Automatic link and pop-up scanning</li>
-        <li>Continuous AI model updates</li>
-        <li>Zero configuration required</li>
-        <li>Runs silently in the background 24/7</li>
-      </ul>
-      <button class="plan-switch-link" id="plan-switch" onclick="togglePlan()">Switch to Yearly &mdash; save 17%</button>
+    <!-- COLUMN 1: FISH IMAGE -->
+    <div class="col-fish">
+      <img src="images/fish-panel-red-2.png" alt="NøFishing AI"/>
     </div>
 
     <!-- COLUMN 2: PAYMENT FORM -->
@@ -196,9 +182,23 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
       </form>
     </div>
 
-    <!-- COLUMN 3: FISH IMAGE -->
-    <div class="col-fish">
-      <img src="images/fish-panel-red.png" alt="NøFishing AI"/>
+    <!-- COLUMN 3: PLAN SUMMARY -->
+    <div class="col" id="plan-summary">
+      <div class="col-title">Your Protection</div>
+      <div class="col-divider"></div>
+      <div class="plan-check-wrap"><span class="plan-check-icon">&#10003;</span></div>
+      <div class="plan-label" id="plan-label">Monthly Protection</div>
+      <div class="plan-price-lg" id="plan-price">$4.99/month</div>
+      <div class="col-divider"></div>
+      <ul class="plan-benefits">
+        <li>AI-powered phishing detection</li>
+        <li>Real-time website analysis</li>
+        <li>Automatic link and pop-up scanning</li>
+        <li>Continuous AI model updates</li>
+        <li>Zero configuration required</li>
+        <li>Runs silently in the background 24/7</li>
+      </ul>
+      <button class="plan-switch-link" id="plan-switch" onclick="togglePlan()">Switch to Yearly &mdash; save 17%</button>
     </div>
 
   </div>
