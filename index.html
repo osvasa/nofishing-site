@@ -130,6 +130,24 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .store-modal a:hover{opacity:0.9;}
 .store-modal-close{background:none;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:8px;transition:color 0.2s;}
 .store-modal-close:hover{color:var(--white);}
+
+.comparison{background:var(--black);padding:64px 48px;text-align:center;color:var(--white);}
+.comparison h2{font-size:28px;font-weight:900;margin-bottom:40px;color:var(--white);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.3;}
+.comparison-cols{display:flex;gap:24px;justify-content:center;max-width:820px;margin:0 auto 40px;align-items:stretch;}
+.comparison-col{flex:1;border-radius:12px;overflow:hidden;text-align:left;display:flex;flex-direction:column;}
+.comparison-col-header{padding:14px 20px;font-size:15px;font-weight:800;text-align:center;letter-spacing:0.02em;}
+.col-browser .comparison-col-header{background:#333;color:rgba(255,255,255,0.6);}
+.col-nofishing .comparison-col-header{background:var(--red);color:var(--white);}
+.comparison-col-body{padding:20px;flex:1;}
+.col-browser{background:#1a1a1a;}
+.col-nofishing{background:#1a1a1a;border:2px solid var(--red);}
+.comparison-col-body ul{list-style:none;padding:0;margin:0;}
+.comparison-col-body li{font-size:13px;line-height:1.6;padding:6px 0 6px 24px;position:relative;color:rgba(255,255,255,0.8);}
+.col-browser li::before{content:'✕';position:absolute;left:0;color:#666;font-weight:700;font-size:14px;}
+.col-nofishing li::before{content:'✓';position:absolute;left:0;color:var(--red);font-weight:700;font-size:14px;}
+.comparison-quote{font-size:24px;font-weight:900;color:var(--white);max-width:600px;margin:0 auto 12px;line-height:1.3;}
+.comparison-subquote{font-size:15px;font-weight:700;color:var(--red);}
+@media(max-width:680px){.comparison-cols{flex-direction:column;}.comparison h2{font-size:22px;}.comparison-quote{font-size:20px;}.comparison{padding:48px 24px;}}
 </style>
 </head>
 <body>
@@ -179,6 +197,42 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
     <div class="how-item"><div class="how-step-num">02</div><h4>Silent protection</h4><p>Every URL you visit is analyzed in real time against phishing patterns, SSL anomalies, and AI threat models.</p></div>
     <div class="how-item"><div class="how-step-num">03</div><h4>Instant block</h4><p>If a phishing site is detected, we block it immediately and show you a full-screen warning.</p></div>
   </div>
+</section>
+
+<section class="comparison">
+  <h2>Isn't my browser's built-in protection enough?</h2>
+  <div class="comparison-cols">
+    <div class="comparison-col col-browser">
+      <div class="comparison-col-header">Built-in Browser Protection</div>
+      <div class="comparison-col-body">
+        <ul>
+          <li>Checks URLs against a static blacklist</li>
+          <li>Only catches sites already reported by someone else</li>
+          <li>Purely reactive — you're exposed until a site gets flagged</li>
+          <li>No AI — just a list lookup</li>
+          <li>New phishing domains slip through every day</li>
+          <li>Updated periodically — not in real time</li>
+          <li>One-size-fits-all — no personalization</li>
+        </ul>
+      </div>
+    </div>
+    <div class="comparison-col col-nofishing">
+      <div class="comparison-col-header">NøFishing AI</div>
+      <div class="comparison-col-body">
+        <ul>
+          <li>Analyzes every URL in real time, every single visit</li>
+          <li>Catches threats before anyone has reported them</li>
+          <li>Proactive — detects suspicious patterns the moment you land</li>
+          <li>14-point AI heuristic engine running silently 24/7</li>
+          <li>Blocks brand new phishing domains from day one</li>
+          <li>Continuously learning and updating automatically</li>
+          <li>Built specifically to protect YOU — not just tick a box</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="comparison-quote">Your browser keeps a list. NøFishing AI thinks.</div>
+  <div class="comparison-subquote">Every browser has basic protection. None of them have ours.</div>
 </section>
 
 <section class="pricing" id="pricing">
