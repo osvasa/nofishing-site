@@ -10,43 +10,51 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--red:#EC220C;--black:#111111;--white:#ffffff;}
 html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;}
+body{font-family:'Inter',sans-serif;background:var(--red);color:var(--black);overflow-x:hidden;}
 
 nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:center;position:sticky;top:0;z-index:100;}
-.nav-logo img{height:30px;width:auto;display:block;}
 
 .hero{background:var(--red);padding:48px 48px 40px;text-align:center;color:var(--white);}
 .hero h1{font-size:36px;font-weight:900;margin-bottom:10px;letter-spacing:-0.02em;}
 .hero p{font-size:16px;line-height:1.6;opacity:0.9;}
 
-/* Plan summary */
-.checkout-section{background:var(--red);padding:48px 48px 0;}
-.checkout-wrap{max-width:520px;margin:0 auto;}
-.plan-summary{background:var(--black);border-radius:8px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-.plan-summary-left{display:flex;align-items:center;gap:10px;}
-.plan-check{color:var(--white);font-size:20px;font-weight:900;flex-shrink:0;}
-.plan-name{font-size:17px;font-weight:800;color:var(--white);}
-.plan-switch{font-size:12px;font-weight:600;color:var(--white);text-decoration:underline;background:none;border:none;font-family:'Inter',sans-serif;cursor:pointer;padding:0;transition:opacity 0.2s;white-space:nowrap;}
-.plan-switch:hover{opacity:0.8;}
+/* 3-column grid */
+.checkout-section{background:var(--red);padding:48px 24px;}
+.checkout-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 280px;gap:24px;align-items:stretch;}
 
-/* Payment form */
-.payment-section{background:var(--red);padding:40px 48px 64px;}
-.payment-form-wrap{max-width:520px;margin:0 auto;background:var(--black);border-radius:12px;padding:32px 28px;}
-.payment-title{font-size:28px;font-weight:900;color:var(--white);text-align:center;margin-bottom:32px;}
-.pay-field{margin-bottom:18px;}
-.pay-field label{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.5);margin-bottom:6px;}
-.pay-field input,.pay-field select{width:100%;padding:13px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);background:#1a1a1a;transition:border-color 0.2s;-webkit-appearance:none;appearance:none;}
+/* Columns 1 & 2 shared */
+.col{background:var(--black);border-radius:12px;padding:32px;color:var(--white);display:flex;flex-direction:column;}
+.col-title{font-size:18px;font-weight:800;text-align:center;margin-bottom:16px;}
+.col-divider{width:100%;height:1px;background:rgba(255,255,255,0.12);margin:0 0 20px;}
+
+/* Column 1 — Plan */
+.plan-check-wrap{text-align:center;margin-bottom:12px;}
+.plan-check-icon{font-size:36px;color:var(--red);}
+.plan-label{font-size:18px;font-weight:800;text-align:center;margin-bottom:4px;}
+.plan-price-lg{font-size:32px;font-weight:900;text-align:center;margin-bottom:16px;}
+.plan-benefits{list-style:none;padding:0;margin:0 0 20px;flex:1;}
+.plan-benefits li{font-size:13px;color:rgba(255,255,255,0.8);padding:5px 0 5px 16px;position:relative;line-height:1.5;}
+.plan-benefits li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:var(--red);}
+.plan-switch-link{display:block;text-align:center;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);text-decoration:underline;background:none;border:none;font-family:'Inter',sans-serif;cursor:pointer;padding:0;margin-top:auto;transition:color 0.2s;}
+.plan-switch-link:hover{color:var(--white);}
+
+/* Column 2 — Payment Form */
+.pay-field{margin-bottom:16px;}
+.pay-field label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.45);margin-bottom:5px;}
+.pay-field input,.pay-field select{width:100%;padding:12px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);background:#1a1a1a;transition:border-color 0.2s;-webkit-appearance:none;appearance:none;}
 .pay-field input:focus,.pay-field select:focus{outline:none;border-color:var(--white);}
-.pay-field input::placeholder{color:rgba(255,255,255,0.3);}
+.pay-field input::placeholder{color:rgba(255,255,255,0.25);}
 .pay-field select{color:var(--white);background-color:#1a1a1a;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23ffffff' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
 .pay-field select option{background:#1a1a1a;color:var(--white);}
-.pay-row{display:flex;gap:16px;}
+.pay-row{display:flex;gap:12px;}
 .pay-row .pay-field{flex:1;}
-.btn-pay{display:block;width:100%;padding:18px;background:var(--white);color:var(--black);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:18px;font-weight:800;cursor:pointer;transition:opacity 0.15s;margin-top:8px;}
+.btn-pay{display:block;width:100%;padding:16px;background:var(--white);color:var(--black);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:17px;font-weight:800;cursor:pointer;transition:opacity 0.15s;margin-top:8px;}
 .btn-pay:hover{opacity:0.9;}
 .btn-pay:active{transform:scale(0.99);}
-.security-note{text-align:center;font-size:12px;color:rgba(255,255,255,0.6);margin-top:16px;}
 
+/* Column 3 — Fish Image */
+.col-fish{border-radius:12px;overflow:hidden;min-width:0;}
+.col-fish img{width:100%;height:100%;object-fit:cover;display:block;}
 
 .footer-bottom{background:#222;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:space-between;padding:16px 48px;font-size:12px;line-height:1.7;}
 .footer-bottom-left strong{color:rgba(255,255,255,0.9);font-size:13px;font-weight:700;}
@@ -84,8 +92,9 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .mobile-modal-btn:hover{opacity:0.9;}
 .mobile-modal-success{font-size:15px;font-weight:700;color:#22C55E;}
 
-@media(max-width:768px){.hero h1{font-size:28px;}.hero{padding:36px 24px 32px;}.checkout-section{padding:36px 24px 0;}.payment-section{padding:28px 24px 48px;}.plan-summary{flex-direction:column;align-items:flex-start;}}
-@media(max-width:520px){nav{padding:0 16px;}.nav-logo img{height:20px;}}
+@media(max-width:900px){.checkout-grid{grid-template-columns:1fr;}.col-fish{height:300px;}}
+@media(max-width:768px){.hero h1{font-size:28px;}.hero{padding:36px 24px 32px;}}
+@media(max-width:520px){nav{padding:0 16px;}}
 @media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
 </style>
 </head>
@@ -103,80 +112,97 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 </section>
 
 <section class="checkout-section">
-  <div class="checkout-wrap">
-    <div class="plan-summary" id="plan-summary">
-      <div class="plan-summary-left">
-        <span class="plan-check">&#10003;</span>
-        <span class="plan-name" id="plan-name">Monthly Plan &mdash; $4.99/month</span>
-      </div>
-      <button class="plan-switch" id="plan-switch" onclick="togglePlan()">Switch to Yearly &mdash; $49.99/year and save 17%</button>
-    </div>
-  </div>
-</section>
+  <div class="checkout-grid">
 
-<section class="payment-section">
-  <div class="payment-form-wrap">
-    <div class="payment-title">Payment Details</div>
-    <form id="payment-form" onsubmit="return false;">
-      <div class="pay-field">
-        <label for="pay-name">Name on Card</label>
-        <input id="pay-name" type="text" placeholder="Jane Smith" autocomplete="cc-name"/>
-      </div>
-      <div class="pay-field">
-        <label for="pay-card">Card Number</label>
-        <input id="pay-card" type="text" placeholder="1234 5678 9012 3456" autocomplete="cc-number" maxlength="19"/>
-      </div>
-      <div class="pay-row">
+    <!-- COLUMN 1: PLAN SUMMARY -->
+    <div class="col" id="plan-summary">
+      <div class="col-title">Your Plan</div>
+      <div class="col-divider"></div>
+      <div class="plan-check-wrap"><span class="plan-check-icon">&#10003;</span></div>
+      <div class="plan-label" id="plan-label">Monthly Protection</div>
+      <div class="plan-price-lg" id="plan-price">$4.99/month</div>
+      <div class="col-divider"></div>
+      <ul class="plan-benefits">
+        <li>AI-powered phishing detection</li>
+        <li>Real-time website analysis</li>
+        <li>Automatic link and pop-up scanning</li>
+        <li>Continuous AI model updates</li>
+        <li>Zero configuration required</li>
+        <li>Runs silently in the background 24/7</li>
+      </ul>
+      <button class="plan-switch-link" id="plan-switch" onclick="togglePlan()">Switch to Yearly &mdash; save 17%</button>
+    </div>
+
+    <!-- COLUMN 2: PAYMENT FORM -->
+    <div class="col">
+      <div class="col-title">Payment Details</div>
+      <div class="col-divider"></div>
+      <form id="payment-form" onsubmit="return false;">
         <div class="pay-field">
-          <label for="pay-exp">Expiration Date</label>
-          <input id="pay-exp" type="text" placeholder="MM / YY" autocomplete="cc-exp" maxlength="7"/>
+          <label for="pay-name">Name on Card</label>
+          <input id="pay-name" type="text" placeholder="Jane Smith" autocomplete="cc-name"/>
         </div>
         <div class="pay-field">
-          <label for="pay-cvv">CVV</label>
-          <input id="pay-cvv" type="text" placeholder="123" autocomplete="cc-csc" maxlength="4"/>
+          <label for="pay-card">Card Number</label>
+          <input id="pay-card" type="text" placeholder="1234 5678 9012 3456" autocomplete="cc-number" maxlength="19"/>
         </div>
-      </div>
-      <div class="pay-field">
-        <label for="pay-address">Billing Address</label>
-        <input id="pay-address" type="text" placeholder="123 Main St" autocomplete="street-address"/>
-      </div>
-      <div class="pay-row">
+        <div class="pay-row">
+          <div class="pay-field">
+            <label for="pay-exp">Expiration Date</label>
+            <input id="pay-exp" type="text" placeholder="MM / YY" autocomplete="cc-exp" maxlength="7"/>
+          </div>
+          <div class="pay-field">
+            <label for="pay-cvv">CVV</label>
+            <input id="pay-cvv" type="text" placeholder="123" autocomplete="cc-csc" maxlength="4"/>
+          </div>
+        </div>
         <div class="pay-field">
-          <label for="pay-city">City</label>
-          <input id="pay-city" type="text" placeholder="New York" autocomplete="address-level2"/>
+          <label for="pay-address">Billing Address</label>
+          <input id="pay-address" type="text" placeholder="123 Main St" autocomplete="street-address"/>
+        </div>
+        <div class="pay-row">
+          <div class="pay-field">
+            <label for="pay-city">City</label>
+            <input id="pay-city" type="text" placeholder="New York" autocomplete="address-level2"/>
+          </div>
+          <div class="pay-field">
+            <label for="pay-zip">Zip Code</label>
+            <input id="pay-zip" type="text" placeholder="10001" autocomplete="postal-code"/>
+          </div>
         </div>
         <div class="pay-field">
-          <label for="pay-zip">Zip Code</label>
-          <input id="pay-zip" type="text" placeholder="10001" autocomplete="postal-code"/>
+          <label for="pay-country">Country</label>
+          <select id="pay-country" autocomplete="country">
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="GB">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="ES">Spain</option>
+            <option value="IT">Italy</option>
+            <option value="NL">Netherlands</option>
+            <option value="SE">Sweden</option>
+            <option value="NO">Norway</option>
+            <option value="DK">Denmark</option>
+            <option value="FI">Finland</option>
+            <option value="JP">Japan</option>
+            <option value="KR">South Korea</option>
+            <option value="BR">Brazil</option>
+            <option value="MX">Mexico</option>
+            <option value="IN">India</option>
+            <option value="other">Other</option>
+          </select>
         </div>
-      </div>
-      <div class="pay-field">
-        <label for="pay-country">Country</label>
-        <select id="pay-country" autocomplete="country">
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="GB">United Kingdom</option>
-          <option value="AU">Australia</option>
-          <option value="DE">Germany</option>
-          <option value="FR">France</option>
-          <option value="ES">Spain</option>
-          <option value="IT">Italy</option>
-          <option value="NL">Netherlands</option>
-          <option value="SE">Sweden</option>
-          <option value="NO">Norway</option>
-          <option value="DK">Denmark</option>
-          <option value="FI">Finland</option>
-          <option value="JP">Japan</option>
-          <option value="KR">South Korea</option>
-          <option value="BR">Brazil</option>
-          <option value="MX">Mexico</option>
-          <option value="IN">India</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <button type="submit" class="btn-pay" id="btn-pay">Start My Protection &mdash; $4.99/month</button>
-    </form>
-    <div class="security-note">&#128274; Secured by Stripe. We never store your card details.</div>
+        <button type="submit" class="btn-pay" id="btn-pay">Start My Protection &mdash; $4.99/month</button>
+      </form>
+    </div>
+
+    <!-- COLUMN 3: FISH IMAGE -->
+    <div class="col-fish">
+      <img src="images/fish-panel-red.png" alt="NøFishing AI"/>
+    </div>
+
   </div>
 </section>
 
@@ -271,16 +297,19 @@ var currentPlan='monthly';
 
 function selectPlan(plan){
   currentPlan=plan;
-  var name=document.getElementById('plan-name');
+  var label=document.getElementById('plan-label');
+  var price=document.getElementById('plan-price');
   var sw=document.getElementById('plan-switch');
   var btn=document.getElementById('btn-pay');
   if(plan==='yearly'){
-    name.innerHTML='Yearly Plan &mdash; $49.99/year &mdash; save 17%';
+    label.textContent='Yearly Protection';
+    price.textContent='$49.99/year';
     sw.innerHTML='Switch to Monthly &mdash; $4.99/month';
     btn.innerHTML='Start My Protection &mdash; $49.99/year';
   }else{
-    name.innerHTML='Monthly Plan &mdash; $4.99/month';
-    sw.innerHTML='Switch to Yearly &mdash; $49.99/year and save 17%';
+    label.textContent='Monthly Protection';
+    price.textContent='$4.99/month';
+    sw.innerHTML='Switch to Yearly &mdash; save 17%';
     btn.innerHTML='Start My Protection &mdash; $4.99/month';
   }
 }
