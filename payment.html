@@ -69,6 +69,21 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .page-inner a{color:var(--red);text-decoration:none;font-weight:600;}
 .page-inner a:hover{text-decoration:underline;}
 
+/* Mobile waitlist modal */
+.mobile-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:400;align-items:center;justify-content:center;}
+.mobile-modal-overlay.active{display:flex;}
+.mobile-modal{background:var(--black);border-radius:12px;padding:36px 28px;max-width:400px;width:90%;text-align:center;color:var(--white);position:relative;}
+.mobile-modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:22px;cursor:pointer;padding:0;line-height:1;transition:color 0.2s;}
+.mobile-modal-close:hover{color:var(--white);}
+.mobile-modal h3{font-size:22px;font-weight:900;margin-bottom:10px;}
+.mobile-modal p{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:20px;}
+.mobile-modal input[type="email"]{width:100%;padding:13px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);background:#1a1a1a;margin-bottom:12px;-webkit-appearance:none;}
+.mobile-modal input[type="email"]::placeholder{color:rgba(255,255,255,0.3);}
+.mobile-modal input[type="email"]:focus{outline:none;border-color:var(--red);}
+.mobile-modal-btn{display:block;width:100%;padding:14px;background:var(--red);color:var(--white);border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:opacity 0.15s;}
+.mobile-modal-btn:hover{opacity:0.9;}
+.mobile-modal-success{font-size:15px;font-weight:700;color:#22C55E;}
+
 @media(max-width:768px){.hero h1{font-size:28px;}.hero{padding:36px 24px 32px;}.checkout-section{padding:36px 24px 0;}.payment-section{padding:28px 24px 48px;}.plan-summary{flex-direction:column;align-items:flex-start;}}
 @media(max-width:520px){nav{padding:0 16px;}.nav-logo img{height:20px;}}
 @media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
@@ -237,7 +252,21 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   </div>
 </div>
 
+<div id="mobile-modal" class="mobile-modal-overlay" onclick="if(event.target===this)closeMobileModal()">
+  <div class="mobile-modal">
+    <button class="mobile-modal-close" onclick="closeMobileModal()">&times;</button>
+    <h3>Mobile Protection Coming Soon.</h3>
+    <p>N&oslash;Fishing AI currently protects desktop browsers. Enter your email to be first to know when mobile launches.</p>
+    <div id="mobile-modal-form">
+      <input type="email" id="mobile-email" placeholder="you@example.com"/>
+      <button class="mobile-modal-btn" onclick="submitMobileWaitlist()">Notify Me</button>
+    </div>
+    <div id="mobile-modal-done" class="mobile-modal-success" style="display:none;">You're on the list!</div>
+  </div>
+</div>
+
 <script>
+var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 var currentPlan='monthly';
 
 function selectPlan(plan){
@@ -260,6 +289,9 @@ function togglePlan(){
   selectPlan(currentPlan==='monthly'?'yearly':'monthly');
 }
 
+function showMobileModal(){document.getElementById('mobile-modal').classList.add('active');document.body.style.overflow='hidden';}
+function closeMobileModal(){document.getElementById('mobile-modal').classList.remove('active');document.body.style.overflow='';}
+function submitMobileWaitlist(){var email=document.getElementById('mobile-email').value.trim();if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return;var list=JSON.parse(localStorage.getItem('nf_waitlist')||'[]');if(list.indexOf(email)===-1)list.push(email);localStorage.setItem('nf_waitlist',JSON.stringify(list));document.getElementById('mobile-modal-form').style.display='none';document.getElementById('mobile-modal-done').style.display='block';}
 function showPage(id){document.getElementById('page-'+id).classList.add('active');document.body.style.overflow='hidden';}
 function hidePage(id){document.getElementById('page-'+id).classList.remove('active');document.body.style.overflow='';}
 
@@ -272,6 +304,7 @@ function hidePage(id){document.getElementById('page-'+id).classList.remove('acti
   }else{
     selectPlan('monthly');
   }
+  if(isMobile){showMobileModal();}
 })();
 </script>
 

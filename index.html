@@ -131,6 +131,21 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .store-modal-close{background:none;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:8px;transition:color 0.2s;}
 .store-modal-close:hover{color:var(--white);}
 
+/* Mobile waitlist modal */
+.mobile-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:400;align-items:center;justify-content:center;}
+.mobile-modal-overlay.active{display:flex;}
+.mobile-modal{background:var(--black);border-radius:12px;padding:36px 28px;max-width:400px;width:90%;text-align:center;color:var(--white);position:relative;}
+.mobile-modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:22px;cursor:pointer;padding:0;line-height:1;transition:color 0.2s;}
+.mobile-modal-close:hover{color:var(--white);}
+.mobile-modal h3{font-size:22px;font-weight:900;margin-bottom:10px;}
+.mobile-modal p{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:20px;}
+.mobile-modal input[type="email"]{width:100%;padding:13px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);background:#1a1a1a;margin-bottom:12px;-webkit-appearance:none;}
+.mobile-modal input[type="email"]::placeholder{color:rgba(255,255,255,0.3);}
+.mobile-modal input[type="email"]:focus{outline:none;border-color:var(--red);}
+.mobile-modal-btn{display:block;width:100%;padding:14px;background:var(--red);color:var(--white);border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:opacity 0.15s;}
+.mobile-modal-btn:hover{opacity:0.9;}
+.mobile-modal-success{font-size:15px;font-weight:700;color:#22C55E;}
+
 .comparison{background:var(--black);padding:64px 48px;text-align:center;color:var(--white);}
 .comparison h2{font-size:36px;font-weight:900;margin-bottom:48px;color:var(--white);max-width:700px;margin-left:auto;margin-right:auto;line-height:1.3;}
 .comparison-cols{display:flex;gap:32px;justify-content:center;max-width:940px;margin:0 auto 48px;align-items:stretch;}
@@ -421,11 +436,28 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   </div>
 </div>
 
+<div id="mobile-modal" class="mobile-modal-overlay" onclick="if(event.target===this)closeMobileModal()">
+  <div class="mobile-modal">
+    <button class="mobile-modal-close" onclick="closeMobileModal()">&times;</button>
+    <h3>Mobile Protection Coming Soon.</h3>
+    <p>N&oslash;Fishing AI currently protects desktop browsers. Enter your email to be first to know when mobile launches.</p>
+    <div id="mobile-modal-form">
+      <input type="email" id="mobile-email" placeholder="you@example.com"/>
+      <button class="mobile-modal-btn" onclick="submitMobileWaitlist()">Notify Me</button>
+    </div>
+    <div id="mobile-modal-done" class="mobile-modal-success" style="display:none;">You're on the list!</div>
+  </div>
+</div>
+
 <script>
+var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 var STORE_URLS={chrome:'https://chrome.google.com/webstore',firefox:'https://addons.mozilla.org',safari:'https://apps.apple.com',edge:'https://microsoftedge.microsoft.com/addons'};
 function getBrowserStoreURL(){var ua=navigator.userAgent;if(ua.includes('Edg/'))return STORE_URLS.edge;if(ua.includes('Firefox/'))return STORE_URLS.firefox;if(ua.includes('Safari/')&&!ua.includes('Chrome'))return STORE_URLS.safari;if(ua.includes('Chrome'))return STORE_URLS.chrome;return null;}
-function goToStore(){var url=getBrowserStoreURL();if(url){window.open(url,'_blank');}else{document.getElementById('store-modal').classList.add('active');document.body.style.overflow='hidden';}}
+function goToStore(){if(isMobile){showMobileModal();return;}var url=getBrowserStoreURL();if(url){window.open(url,'_blank');}else{document.getElementById('store-modal').classList.add('active');document.body.style.overflow='hidden';}}
 function closeStoreModal(){document.getElementById('store-modal').classList.remove('active');document.body.style.overflow='';}
+function showMobileModal(){document.getElementById('mobile-modal').classList.add('active');document.body.style.overflow='hidden';}
+function closeMobileModal(){document.getElementById('mobile-modal').classList.remove('active');document.body.style.overflow='';}
+function submitMobileWaitlist(){var email=document.getElementById('mobile-email').value.trim();if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return;var list=JSON.parse(localStorage.getItem('nf_waitlist')||'[]');if(list.indexOf(email)===-1)list.push(email);localStorage.setItem('nf_waitlist',JSON.stringify(list));document.getElementById('mobile-modal-form').style.display='none';document.getElementById('mobile-modal-done').style.display='block';}
 function showPage(id){document.getElementById('page-'+id).classList.add('active');document.body.style.overflow='hidden';}
 function hidePage(id){document.getElementById('page-'+id).classList.remove('active');document.body.style.overflow='';}
 function submitContact(e){e.preventDefault();var f=e.target;var subject=encodeURIComponent(f.subject.value);var body=encodeURIComponent('Name: '+f.name.value+'\n\n'+f.message.value);window.location.href='mailto:hello@nofishing.ai?subject='+subject+'&body='+body;}
