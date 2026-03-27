@@ -96,6 +96,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 @media(max-width:520px){nav{padding:0 16px;}}
 @media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
 </style>
+<script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 
@@ -127,18 +128,9 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
           <input id="pay-name" type="text" placeholder="Jane Smith" autocomplete="cc-name"/>
         </div>
         <div class="pay-field">
-          <label for="pay-card">Card Number</label>
-          <input id="pay-card" type="text" placeholder="1234 5678 9012 3456" autocomplete="cc-number" maxlength="19"/>
-        </div>
-        <div class="pay-row">
-          <div class="pay-field">
-            <label for="pay-exp">Expiration Date</label>
-            <input id="pay-exp" type="text" placeholder="MM / YY" autocomplete="cc-exp" maxlength="7"/>
-          </div>
-          <div class="pay-field">
-            <label for="pay-cvv">CVV</label>
-            <input id="pay-cvv" type="text" placeholder="123" autocomplete="cc-csc" maxlength="4"/>
-          </div>
+          <label>Card Details</label>
+          <div id="card-element" style="padding:10px 12px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;background:#1a1a1a;transition:border-color 0.2s;"></div>
+          <div id="card-errors" style="font-size:12px;color:#f87171;margin-top:4px;min-height:18px;"></div>
         </div>
         <div class="pay-field">
           <label for="pay-address">Billing Address</label>
@@ -333,6 +325,79 @@ function hidePage(id){document.getElementById('page-'+id).classList.remove('acti
   }
   if(isMobile){showMobileModal();}
 })();
+
+// ── Stripe Elements ──
+var stripe = Stripe('pk_test_51QsFAtGMOsHNfb5uORxtRHFx4IeVezI4P4xt73CHGuy6iOlzz3iAkWnCcEb1QCTyF8a20AwgUzZQLs807KhfQzQs00DTw4vY6n');
+var elements = stripe.elements();
+var cardElement = elements.create('card', {
+  style: {
+    base: {
+      color: '#ffffff',
+      fontFamily: "'Inter', sans-serif",
+      fontSize: '14px',
+      '::placeholder': { color: 'rgba(255,255,255,0.25)' },
+    },
+    invalid: { color: '#f87171' },
+  }
+});
+cardElement.mount('#card-element');
+
+cardElement.on('change', function(event) {
+  var errEl = document.getElementById('card-errors');
+  errEl.textContent = event.error ? event.error.message : '';
+});
+
+document.getElementById('payment-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('btn-pay');
+  var errEl = document.getElementById('card-errors');
+  var params = new URLSearchParams(window.location.search);
+  var email = params.get('email') || '';
+
+  btn.disabled = true;
+  btn.textContent = 'Processing...';
+  errEl.textContent = '';
+
+  try {
+    // Create PaymentIntent
+    var res = await fetch('/api/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan: currentPlan, email: email }),
+    });
+    var data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Payment setup failed');
+
+    // Confirm payment
+    var result = await stripe.confirmCardPayment(data.clientSecret, {
+      payment_method: {
+        card: cardElement,
+        billing_details: {
+          name: document.getElementById('pay-name').value,
+          email: email,
+          address: {
+            line1: document.getElementById('pay-address').value,
+            city: document.getElementById('pay-city').value,
+            postal_code: document.getElementById('pay-zip').value,
+            country: document.getElementById('pay-country').value,
+          },
+        },
+      },
+    });
+
+    if (result.error) {
+      errEl.textContent = result.error.message;
+      btn.disabled = false;
+      selectPlan(currentPlan); // restore button text
+    } else if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
+      window.location.href = '/payment-success.html?plan=' + currentPlan + '&email=' + encodeURIComponent(email);
+    }
+  } catch (err) {
+    errEl.textContent = err.message || 'Something went wrong. Please try again.';
+    btn.disabled = false;
+    selectPlan(currentPlan); // restore button text
+  }
+});
 </script>
 
 </body>
