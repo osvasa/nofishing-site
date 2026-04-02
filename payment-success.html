@@ -23,8 +23,8 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .active-dot{width:10px;height:10px;border-radius:50%;background:#22C55E;animation:pulse 2s ease-in-out infinite;}
 .active-text{font-size:14px;font-weight:700;color:#22C55E;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
-.btn-home{display:inline-block;padding:13px 32px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:800;text-decoration:none;cursor:pointer;transition:opacity 0.15s;}
-.btn-home:hover{opacity:0.9;}
+.btn-close{display:block;width:100%;padding:15px 32px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:opacity 0.15s;}
+.btn-close:hover{opacity:0.9;}
 .footer-bottom{background:#222;color:rgba(255,255,255,0.6);text-align:center;padding:16px 48px;font-size:12px;line-height:1.7;}
 @media(max-width:520px){nav{padding:0 16px;}.success-title{font-size:26px;}}
 </style>
@@ -40,8 +40,17 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 <div class="success-wrap">
   <div class="success-card">
     <div class="check-circle"><span>&#10003;</span></div>
-    <h1 class="success-title">Payment Confirmed.</h1>
-    <p class="success-sub">You can close this tab and return to your browser.</p>
+    <h1 class="success-title">You're Protected.</h1>
+    <p class="success-sub">Payment confirmed. NøFishing AI is now actively guarding your browser against phishing, scams, and fraud.</p>
+    <div class="plan-badge">
+      <div class="plan-badge-label" id="badge-label">Monthly Protection</div>
+      <div class="plan-badge-price" id="badge-price">$4.99/month</div>
+    </div>
+    <div class="active-status">
+      <span class="active-dot"></span>
+      <span class="active-text">Protection Active</span>
+    </div>
+    <button class="btn-close" onclick="window.close()">Start browsing safely &rarr;</button>
   </div>
 </div>
 
@@ -49,6 +58,16 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   Copyright &copy; 2026 NøFishing AI &mdash; All Rights Reserved.
 </div>
 
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var plan = params.get('plan');
+  if (plan === 'yearly') {
+    document.getElementById('badge-label').textContent = 'Yearly Protection';
+    document.getElementById('badge-price').textContent = '$49.99/year';
+  }
+})();
+</script>
 
 </body>
 </html>
