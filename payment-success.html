@@ -40,17 +40,8 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 <div class="success-wrap">
   <div class="success-card">
     <div class="check-circle"><span>&#10003;</span></div>
-    <h1 class="success-title">You're Protected.</h1>
-    <p class="success-sub">Payment confirmed. NøFishing AI is now actively guarding your browser against phishing, scams, and fraud.</p>
-    <div class="plan-badge">
-      <div class="plan-badge-label" id="badge-label">Monthly Protection</div>
-      <div class="plan-badge-price" id="badge-price">$4.99/month</div>
-    </div>
-    <div class="active-status">
-      <span class="active-dot"></span>
-      <span class="active-text">Protection Active</span>
-    </div>
-    <a href="/" class="btn-home">Back to NøFishing AI</a>
+    <h1 class="success-title">Payment Confirmed.</h1>
+    <p class="success-sub">You can close this tab and return to your browser.</p>
   </div>
 </div>
 
@@ -58,16 +49,6 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   Copyright &copy; 2026 NøFishing AI &mdash; All Rights Reserved.
 </div>
 
-<script>
-(function(){
-  var params = new URLSearchParams(window.location.search);
-  var plan = params.get('plan');
-  if (plan === 'yearly') {
-    document.getElementById('badge-label').textContent = 'Yearly Protection';
-    document.getElementById('badge-price').textContent = '$49.99/year';
-  }
-})();
-</script>
 
 </body>
 </html>
