@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NøFishing AI — Create Your Account</title>
+<meta name="description" content="Sign up for NøFishing AI. AI-powered phishing protection starting at $4.99/month.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#EC220C;--black:#111111;--white:#ffffff;}
+body{font-family:'Inter',sans-serif;background:var(--red);color:var(--white);min-height:100vh;display:flex;flex-direction:column;}
+nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:center;position:sticky;top:0;z-index:100;}
+.signup-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 24px;}
+.signup-card{background:var(--black);border-radius:12px;padding:32px 28px;max-width:420px;width:100%;}
+.signup-title{font-size:24px;font-weight:900;text-align:center;margin-bottom:24px;color:var(--white);}
+.s-row{display:flex;gap:12px;}
+.s-row .s-field{flex:1;}
+.s-field{margin-bottom:14px;}
+.s-field label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.45);margin-bottom:3px;}
+.s-field input{width:100%;padding:11px 12px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);background:#1a1a1a;transition:border-color 0.2s;-webkit-appearance:none;}
+.s-field input:focus{outline:none;border-color:var(--white);}
+.s-field input::placeholder{color:rgba(255,255,255,0.25);}
+.s-field input.input-error{border-color:var(--red) !important;}
+.field-error{font-size:10px;color:var(--red);margin-top:3px;display:none;}
+.field-error.show{display:block;}
+.s-checkbox{display:flex;align-items:flex-start;gap:8px;margin-bottom:18px;}
+.s-checkbox input[type="checkbox"]{width:16px;height:16px;margin-top:1px;flex-shrink:0;accent-color:var(--red);}
+.s-checkbox label{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;cursor:pointer;}
+.s-checkbox label a{color:var(--red);text-decoration:none;}
+.s-checkbox label a:hover{text-decoration:underline;}
+.s-checkbox-error{font-size:10px;color:var(--red);margin-top:-12px;margin-bottom:14px;display:none;}
+.s-checkbox-error.show{display:block;}
+.error-banner{font-size:11px;color:var(--red);background:rgba(236,34,12,0.06);border:1px solid rgba(236,34,12,0.15);border-radius:8px;padding:10px 14px;margin-bottom:14px;text-align:center;display:none;}
+.error-banner.show{display:block;}
+.btn-signup{display:block;width:100%;padding:13px 16px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:opacity 0.15s;}
+.btn-signup:hover{opacity:0.9;}
+.btn-signup:disabled{opacity:0.5;cursor:not-allowed;}
+.signup-switch{text-align:center;font-size:12px;color:rgba(255,255,255,0.5);margin-top:16px;}
+.signup-switch a{color:var(--red);text-decoration:none;font-weight:600;}
+.signup-switch a:hover{text-decoration:underline;}
+.footer-bottom{background:#222;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:space-between;padding:16px 48px;font-size:12px;line-height:1.7;}
+.footer-bottom-left strong{color:rgba(255,255,255,0.9);font-size:13px;font-weight:700;}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{color:rgba(255,255,255,0.6);font-size:12px;text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--white);}
+@media(max-width:520px){nav{padding:0 16px;}.signup-wrap{padding:24px 16px;}.signup-card{padding:24px 20px;}}
+@media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" style="text-decoration:none;">
+    <img src="images/logo.png" alt="NOFISHING AI" style="height:30px;width:auto;display:block;">
+  </a>
+</nav>
+
+<div class="signup-wrap">
+  <div class="signup-card">
+    <div class="signup-title">Create your account</div>
+
+    <form id="signup-form" novalidate>
+      <div class="s-row">
+        <div class="s-field">
+          <label for="s-first">First Name</label>
+          <input id="s-first" type="text" placeholder="Jane"/>
+          <div class="field-error" id="err-s-first"></div>
+        </div>
+        <div class="s-field">
+          <label for="s-last">Last Name</label>
+          <input id="s-last" type="text" placeholder="Smith"/>
+          <div class="field-error" id="err-s-last"></div>
+        </div>
+      </div>
+
+      <div class="s-field">
+        <label for="s-email">Email</label>
+        <input id="s-email" type="email" placeholder="you@example.com"/>
+        <div class="field-error" id="err-s-email"></div>
+      </div>
+
+      <div class="s-field">
+        <label for="s-password">Password</label>
+        <input id="s-password" type="password" placeholder="6+ characters"/>
+        <div class="field-error" id="err-s-password"></div>
+      </div>
+
+      <div class="s-checkbox">
+        <input type="checkbox" id="s-terms"/>
+        <label for="s-terms">I agree to the <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Policy</a></label>
+      </div>
+      <div class="s-checkbox-error" id="err-s-terms">You must agree to the terms</div>
+
+      <div class="error-banner" id="signup-error-banner"></div>
+      <button type="submit" class="btn-signup" id="btn-signup">Create Account</button>
+    </form>
+
+    <div class="signup-switch">Already have an account? <a href="/login.html">Log in</a></div>
+  </div>
+</div>
+
+<div class="footer-bottom">
+  <div class="footer-bottom-left">
+    <strong>AI-Powered Phishing Protection</strong>
+    Copyright &copy; 2026 NøFishing AI &mdash; All Rights Reserved.
+  </div>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Use</a>
+    <a href="mailto:hello@nofishing.ai">Contact Us</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+var SUPABASE_URL = 'https://pbdlyfdcrqeddqixbqoy.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_rezQfX2x_cmLfB7iFu6vJg_BRJAPrjp';
+var sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+function showFieldError(inputId, errId, msg) {
+  document.getElementById(inputId).classList.add('input-error');
+  var el = document.getElementById(errId);
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function clearFieldError(inputId, errId) {
+  document.getElementById(inputId).classList.remove('input-error');
+  document.getElementById(errId).classList.remove('show');
+}
+
+['s-first','s-last','s-email','s-password'].forEach(function(id) {
+  document.getElementById(id).addEventListener('input', function() {
+    clearFieldError(id, 'err-' + id);
+  });
+});
+
+document.getElementById('s-terms').addEventListener('change', function() {
+  document.getElementById('err-s-terms').classList.remove('show');
+});
+
+document.getElementById('signup-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  ['s-first','s-last','s-email','s-password'].forEach(function(id) {
+    clearFieldError(id, 'err-' + id);
+  });
+  document.getElementById('err-s-terms').classList.remove('show');
+  document.getElementById('signup-error-banner').classList.remove('show');
+
+  var first = document.getElementById('s-first').value.trim();
+  var last = document.getElementById('s-last').value.trim();
+  var email = document.getElementById('s-email').value.trim();
+  var password = document.getElementById('s-password').value;
+  var terms = document.getElementById('s-terms').checked;
+
+  var valid = true;
+
+  if (!first) { showFieldError('s-first', 'err-s-first', 'First name is required'); valid = false; }
+  if (!last) { showFieldError('s-last', 'err-s-last', 'Last name is required'); valid = false; }
+  if (!email) {
+    showFieldError('s-email', 'err-s-email', 'Email is required'); valid = false;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showFieldError('s-email', 'err-s-email', 'Enter a valid email'); valid = false;
+  }
+  if (!password) {
+    showFieldError('s-password', 'err-s-password', 'Password is required'); valid = false;
+  } else if (password.length < 6) {
+    showFieldError('s-password', 'err-s-password', 'Must be at least 6 characters'); valid = false;
+  }
+  if (!terms) {
+    document.getElementById('err-s-terms').classList.add('show');
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  var btn = document.getElementById('btn-signup');
+  btn.disabled = true;
+  btn.textContent = 'Creating account...';
+
+  try {
+    var result = await sbClient.auth.signUp({
+      email: email,
+      password: password,
+      options: { data: { first_name: first, last_name: last } },
+    });
+
+    if (result.error) {
+      var banner = document.getElementById('signup-error-banner');
+      banner.textContent = result.error.message;
+      banner.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Create Account';
+      return;
+    }
+
+    // Create profile via serverless function
+    var profileRes = await fetch('/api/create-profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: result.data.user.id,
+        first_name: first,
+        last_name: last,
+        email: email,
+        plan: 'monthly',
+      }),
+    });
+
+    if (!profileRes.ok) {
+      var profileData = await profileRes.json();
+      console.error('Profile creation failed:', profileData.error);
+    }
+
+    window.location.href = '/check-email.html?email=' + encodeURIComponent(email);
+  } catch (err) {
+    var banner = document.getElementById('signup-error-banner');
+    banner.textContent = 'Something went wrong. Please try again.';
+    banner.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Create Account';
+  }
+});
+</script>
+
+</body>
+</html>
