@@ -168,6 +168,24 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 </style>
 </head>
 <body>
+<script>
+(function() {
+  var hash = window.location.hash.substring(1);
+  if (hash.indexOf('access_token') !== -1 && hash.indexOf('type=signup') !== -1) {
+    var params = new URLSearchParams(hash);
+    var token = params.get('access_token');
+    if (token) {
+      try {
+        var payload = JSON.parse(atob(token.split('.')[1]));
+        if (payload.email) {
+          window.location.replace('/payment?email=' + encodeURIComponent(payload.email) + '&plan=monthly');
+          return;
+        }
+      } catch (e) {}
+    }
+  }
+})();
+</script>
 
 <nav>
   <a href="#" style="text-decoration:none;">
