@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NøFishing AI — Log In</title>
+<meta name="description" content="Log in to your NøFishing AI account.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#EC220C;--black:#111111;--white:#ffffff;}
+body{font-family:'Inter',sans-serif;background:var(--red);color:var(--white);min-height:100vh;display:flex;flex-direction:column;}
+nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:center;position:sticky;top:0;z-index:100;}
+.login-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 24px;}
+.login-card{background:var(--black);border-radius:12px;padding:32px 28px;max-width:420px;width:100%;}
+.login-fish{width:80px;height:auto;display:block;margin:0 auto 16px;}
+.login-title{font-size:24px;font-weight:900;text-align:center;margin-bottom:8px;color:var(--white);}
+.login-sub{font-size:13px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.6;margin-bottom:24px;}
+.l-field{margin-bottom:14px;}
+.l-field label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.45);margin-bottom:3px;}
+.l-field input{width:100%;padding:11px 12px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);background:#1a1a1a;transition:border-color 0.2s;-webkit-appearance:none;}
+.l-field input:focus{outline:none;border-color:var(--white);}
+.l-field input::placeholder{color:rgba(255,255,255,0.25);}
+.l-field input.input-error{border-color:var(--red) !important;}
+.field-error{font-size:10px;color:var(--red);margin-top:3px;display:none;}
+.field-error.show{display:block;}
+.error-banner{font-size:11px;color:var(--red);background:rgba(236,34,12,0.06);border:1px solid rgba(236,34,12,0.15);border-radius:8px;padding:10px 14px;margin-bottom:14px;text-align:center;display:none;}
+.error-banner.show{display:block;}
+.btn-login{display:block;width:100%;padding:13px 16px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:opacity 0.15s;}
+.btn-login:hover{opacity:0.9;}
+.btn-login:disabled{opacity:0.5;cursor:not-allowed;}
+.login-switch{text-align:center;font-size:12px;color:rgba(255,255,255,0.5);margin-top:16px;}
+.login-switch a{color:var(--red);text-decoration:none;font-weight:600;}
+.login-switch a:hover{text-decoration:underline;}
+.footer-bottom{background:#222;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:space-between;padding:16px 48px;font-size:12px;line-height:1.7;}
+.footer-bottom-left strong{color:rgba(255,255,255,0.9);font-size:13px;font-weight:700;}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{color:rgba(255,255,255,0.6);font-size:12px;text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--white);}
+@media(max-width:520px){nav{padding:0 16px;}.login-wrap{padding:24px 16px;}.login-card{padding:24px 20px;}}
+@media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" style="text-decoration:none;">
+    <img src="images/logo.png" alt="NOFISHING AI" style="height:30px;width:auto;display:block;">
+  </a>
+</nav>
+
+<div class="login-wrap">
+  <div class="login-card">
+    <img src="images/nofishing-ai-bubbles.gif" alt="NøFishing AI" class="login-fish"/>
+    <div class="login-title">Welcome back</div>
+    <p class="login-sub">Sign in to activate your protection.</p>
+
+    <form id="login-form" novalidate>
+      <div class="error-banner" id="login-error-banner"></div>
+
+      <div class="l-field">
+        <label for="l-email">Email</label>
+        <input id="l-email" type="email" placeholder="you@example.com"/>
+        <div class="field-error" id="err-l-email"></div>
+      </div>
+
+      <div class="l-field">
+        <label for="l-password">Password</label>
+        <input id="l-password" type="password" placeholder="Your password"/>
+        <div class="field-error" id="err-l-password"></div>
+      </div>
+
+      <button type="submit" class="btn-login" id="btn-login">Log in</button>
+    </form>
+
+    <div class="login-switch">Don't have an account? <a href="/signup.html">Sign up</a></div>
+  </div>
+</div>
+
+<div class="footer-bottom">
+  <div class="footer-bottom-left">
+    <strong>AI-Powered Phishing Protection</strong>
+    Copyright &copy; 2026 NøFishing AI &mdash; All Rights Reserved.
+  </div>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Use</a>
+    <a href="mailto:hello@nofishing.ai">Contact Us</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+var SUPABASE_URL = 'https://pbdlyfdcrqeddqixbqoy.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_rezQfX2x_cmLfB7iFu6vJg_BRJAPrjp';
+var sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+function showFieldError(inputId, errId, msg) {
+  document.getElementById(inputId).classList.add('input-error');
+  var el = document.getElementById(errId);
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function clearFieldError(inputId, errId) {
+  document.getElementById(inputId).classList.remove('input-error');
+  document.getElementById(errId).classList.remove('show');
+}
+
+['l-email','l-password'].forEach(function(id) {
+  document.getElementById(id).addEventListener('input', function() {
+    clearFieldError(id, 'err-' + id);
+    document.getElementById('login-error-banner').classList.remove('show');
+  });
+});
+
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  ['l-email','l-password'].forEach(function(id) { clearFieldError(id, 'err-' + id); });
+  document.getElementById('login-error-banner').classList.remove('show');
+
+  var email = document.getElementById('l-email').value.trim();
+  var password = document.getElementById('l-password').value;
+
+  var valid = true;
+
+  if (!email) {
+    showFieldError('l-email', 'err-l-email', 'Email is required'); valid = false;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showFieldError('l-email', 'err-l-email', 'Enter a valid email'); valid = false;
+  }
+  if (!password) {
+    showFieldError('l-password', 'err-l-password', 'Password is required'); valid = false;
+  }
+
+  if (!valid) return;
+
+  var btn = document.getElementById('btn-login');
+  btn.disabled = true;
+  btn.textContent = 'Logging in...';
+
+  try {
+    var result = await sbClient.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (result.error) {
+      btn.disabled = false;
+      btn.textContent = 'Log in';
+      var banner = document.getElementById('login-error-banner');
+      banner.textContent = result.error.message;
+      banner.classList.add('show');
+      return;
+    }
+
+    // Check profiles table for activated status
+    var profileResult = await sbClient
+      .from('profiles')
+      .select('activated, plan')
+      .eq('id', result.data.user.id)
+      .single();
+
+    var profile = profileResult.data;
+
+    if (profile && profile.activated) {
+      window.location.href = '/payment-success.html?plan=' + encodeURIComponent(profile.plan || 'monthly');
+    } else {
+      window.location.href = '/payment?email=' + encodeURIComponent(email) + '&plan=' + encodeURIComponent((profile && profile.plan) || 'monthly');
+    }
+  } catch (err) {
+    var banner = document.getElementById('login-error-banner');
+    banner.textContent = 'Something went wrong. Please try again.';
+    banner.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Log in';
+  }
+});
+</script>
+
+</body>
+</html>
