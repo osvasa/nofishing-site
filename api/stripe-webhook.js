@@ -40,9 +40,8 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Invalid signature' });
   }
 
-  // Only handle invoice.payment_succeeded
-  if (event.type !== 'invoice.payment_succeeded') {
-    return res.status(200).json({ received: true, ignored: event.type });
+  if (event.type !== 'invoice.paid' && event.type !== 'invoice.payment_succeeded') {
+    return res.status(200).json({ received: true });
   }
 
   try {
