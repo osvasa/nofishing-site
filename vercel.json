@@ -1,5 +1,9 @@
 {
   "rewrites": [
-    { "source": "/payment", "destination": "/payment.html" }
+    { "source": "/payment", "destination": "/payment.html" },
+    { "source": "/signup", "destination": "/signup.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/check-email", "destination": "/check-email.html" },
+    { "source": "/payment-success", "destination": "/payment-success.html" }
   ]
 }
