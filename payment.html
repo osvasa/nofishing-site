@@ -347,6 +347,21 @@ cardElement.on('change', function(event) {
   errEl.textContent = event.error ? event.error.message : '';
 });
 
+// Fetch SetupIntent client secret on page load
+var setupClientSecret = null;
+(async function() {
+  try {
+    var res = await fetch('/api/create-setup-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    var data = await res.json();
+    if (res.ok) setupClientSecret = data.clientSecret;
+  } catch (err) {
+    console.error('Failed to create SetupIntent:', err);
+  }
+})();
+
 document.getElementById('payment-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   var btn = document.getElementById('btn-pay');
@@ -359,17 +374,10 @@ document.getElementById('payment-form').addEventListener('submit', async functio
   errEl.textContent = '';
 
   try {
-    // Create PaymentIntent
-    var res = await fetch('/api/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan: currentPlan, email: email }),
-    });
-    var data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Payment setup failed');
+    if (!setupClientSecret) throw new Error('Payment setup not ready. Please refresh and try again.');
 
-    // Confirm payment
-    var result = await stripe.confirmCardPayment(data.clientSecret, {
+    // Confirm card setup
+    var result = await stripe.confirmCardSetup(setupClientSecret, {
       payment_method: {
         card: cardElement,
         billing_details: {
@@ -388,14 +396,29 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     if (result.error) {
       errEl.textContent = result.error.message;
       btn.disabled = false;
-      selectPlan(currentPlan); // restore button text
-    } else if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
-      window.location.href = '/payment-success.html?plan=' + currentPlan + '&email=' + encodeURIComponent(email);
+      selectPlan(currentPlan);
+      return;
     }
+
+    // Create subscription with the confirmed payment method
+    var subRes = await fetch('/api/create-subscription', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        plan: currentPlan,
+        paymentMethodId: result.setupIntent.payment_method,
+      }),
+    });
+    var subData = await subRes.json();
+
+    if (!subRes.ok) throw new Error(subData.error || 'Subscription creation failed');
+
+    window.location.href = '/payment-success.html?plan=' + currentPlan + '&email=' + encodeURIComponent(email);
   } catch (err) {
     errEl.textContent = err.message || 'Something went wrong. Please try again.';
     btn.disabled = false;
-    selectPlan(currentPlan); // restore button text
+    selectPlan(currentPlan);
   }
 });
 </script>

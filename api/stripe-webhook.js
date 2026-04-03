@@ -40,23 +40,32 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Invalid signature' });
   }
 
-  // Only handle payment_intent.succeeded
-  if (event.type !== 'payment_intent.succeeded') {
+  // Only handle invoice.payment_succeeded
+  if (event.type !== 'invoice.payment_succeeded') {
     return res.status(200).json({ received: true, ignored: event.type });
   }
 
   try {
-    const paymentIntent = event.data.object;
-    const email = paymentIntent.metadata?.email;
+    const invoice = event.data.object;
+    let email = invoice.customer_email;
 
+    // If email is null on invoice, fetch from customer
     if (!email) {
-      console.error('No email in payment intent metadata:', paymentIntent.id);
-      return res.status(200).json({ received: true, warning: 'no email in metadata' });
+      const customer = await stripe.customers.retrieve(invoice.customer);
+      email = customer.email;
     }
 
-    console.log(`Payment succeeded for ${email}, plan: ${paymentIntent.metadata?.plan}`);
+    if (!email) {
+      console.error('No email found for invoice:', invoice.id);
+      return res.status(200).json({ received: true, warning: 'no email found' });
+    }
 
-    // Update profiles table: set activated=true where email matches
+    // Calculate next renewal date from invoice period_end
+    const nextRenewal = new Date(invoice.period_end * 1000).toISOString();
+
+    console.log(`Invoice paid for ${email}, next renewal: ${nextRenewal}`);
+
+    // Update profiles table: set activated=true and next_renewal
     const response = await fetch(
       `${supabaseUrl}/rest/v1/profiles?email=eq.${encodeURIComponent(email)}`,
       {
@@ -67,7 +76,7 @@ module.exports = async (req, res) => {
           'Content-Type': 'application/json',
           'Prefer': 'return=minimal',
         },
-        body: JSON.stringify({ activated: true }),
+        body: JSON.stringify({ activated: true, next_renewal: nextRenewal }),
       }
     );
 
