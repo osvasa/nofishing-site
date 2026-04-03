@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NøFishing AI — Choose Your Plan</title>
+<meta name="description" content="Choose your NøFishing AI protection plan. Monthly or yearly.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#EC220C;--black:#111111;--white:#ffffff;}
+body{font-family:'Inter',sans-serif;background:var(--red);color:var(--white);min-height:100vh;display:flex;flex-direction:column;}
+nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:center;position:sticky;top:0;z-index:100;}
+.plans-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 24px;}
+.plans-inner{max-width:700px;width:100%;text-align:center;}
+.plans-title{font-size:32px;font-weight:900;color:var(--white);margin-bottom:8px;letter-spacing:-0.02em;}
+.plans-sub{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:36px;}
+.plans-grid{display:flex;gap:20px;justify-content:center;}
+.plan-card{background:var(--black);border-radius:12px;padding:28px 24px;flex:1;max-width:320px;text-align:center;position:relative;}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;background:var(--red);color:var(--white);padding:3px 10px;border-radius:4px;white-space:nowrap;letter-spacing:0.04em;}
+.plan-label{font-size:11px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;}
+.plan-price{font-size:36px;font-weight:900;color:var(--white);line-height:1;margin-bottom:4px;}
+.plan-price sup{font-size:18px;vertical-align:top;font-weight:700;}
+.plan-period{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:20px;}
+.plan-features{list-style:none;padding:0;margin:0 0 24px;text-align:left;}
+.plan-features li{font-size:13px;color:rgba(255,255,255,0.8);padding:5px 0 5px 20px;position:relative;line-height:1.5;}
+.plan-features li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--red);}
+.plan-btn{display:block;width:100%;padding:13px 16px;background:var(--white);color:var(--black);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:opacity 0.15s;}
+.plan-btn:hover{opacity:0.9;}
+.footer-bottom{background:#222;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:space-between;padding:16px 48px;font-size:12px;line-height:1.7;}
+.footer-bottom-left strong{color:rgba(255,255,255,0.9);font-size:13px;font-weight:700;}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{color:rgba(255,255,255,0.6);font-size:12px;text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--white);}
+@media(max-width:600px){.plans-grid{flex-direction:column;align-items:center;}.plan-card{max-width:100%;}.plans-title{font-size:26px;}}
+@media(max-width:520px){nav{padding:0 16px;}}
+@media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" style="text-decoration:none;">
+    <img src="images/logo.png" alt="NOFISHING AI" style="height:30px;width:auto;display:block;">
+  </a>
+</nav>
+
+<div class="plans-wrap">
+  <div class="plans-inner">
+    <h1 class="plans-title">Choose Your Protection Plan</h1>
+    <p class="plans-sub">Cancel anytime. No hidden fees.</p>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-label">Monthly</div>
+        <div class="plan-price"><sup>$</sup>4.99</div>
+        <div class="plan-period">/month</div>
+        <ul class="plan-features">
+          <li>AI-powered phishing detection</li>
+          <li>Real-time website analysis</li>
+          <li>Automatic link and pop-up scanning</li>
+          <li>Continuous AI model updates</li>
+          <li>Zero configuration required</li>
+          <li>Runs silently in the background 24/7</li>
+        </ul>
+        <button class="plan-btn" onclick="selectPlan('monthly')">Select Monthly</button>
+      </div>
+
+      <div class="plan-card">
+        <span class="plan-badge">BEST VALUE</span>
+        <div class="plan-label">Yearly</div>
+        <div class="plan-price"><sup>$</sup>49.99</div>
+        <div class="plan-period">/year — save 17%</div>
+        <ul class="plan-features">
+          <li>AI-powered phishing detection</li>
+          <li>Real-time website analysis</li>
+          <li>Automatic link and pop-up scanning</li>
+          <li>Continuous AI model updates</li>
+          <li>Zero configuration required</li>
+          <li>Runs silently in the background 24/7</li>
+        </ul>
+        <button class="plan-btn" onclick="selectPlan('yearly')">Select Yearly</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-bottom">
+  <div class="footer-bottom-left">
+    <strong>AI-Powered Phishing Protection</strong>
+    Copyright &copy; 2026 NøFishing AI &mdash; All Rights Reserved.
+  </div>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Use</a>
+    <a href="mailto:hello@nofishing.ai">Contact Us</a>
+  </div>
+</div>
+
+<script>
+function selectPlan(plan) {
+  var params = new URLSearchParams(window.location.search);
+  var email = params.get('email') || '';
+  window.location.href = '/payment?email=' + encodeURIComponent(email) + '&plan=' + plan;
+}
+</script>
+
+</body>
+</html>
