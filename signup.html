@@ -181,11 +181,13 @@ document.getElementById('signup-form').addEventListener('submit', async function
   btn.textContent = 'Creating account...';
 
   try {
+    console.log('Starting signup...', { email: email, first: first, last: last });
     var result = await sbClient.auth.signUp({
       email: email,
       password: password,
       options: { data: { first_name: first, last_name: last } },
     });
+    console.log('SignUp result:', { data: result.data, error: result.error });
 
     if (result.error) {
       var banner = document.getElementById('signup-error-banner');
@@ -209,13 +211,17 @@ document.getElementById('signup-form').addEventListener('submit', async function
       }),
     });
 
+    console.log('Create-profile response status:', profileRes.status);
+    var profileData = await profileRes.json();
+    console.log('Create-profile response body:', profileData);
+
     if (!profileRes.ok) {
-      var profileData = await profileRes.json();
       console.error('Profile creation failed:', profileData.error);
     }
 
     window.location.href = '/check-email.html?email=' + encodeURIComponent(email);
   } catch (err) {
+    console.error('Signup caught error:', err);
     var banner = document.getElementById('signup-error-banner');
     banner.textContent = 'Something went wrong. Please try again.';
     banner.classList.add('show');
