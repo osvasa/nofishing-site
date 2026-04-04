@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
   }
 
   try {
+    console.log('Received body:', JSON.stringify(req.body));
     const { id, first_name, last_name, email, plan } = req.body;
 
     if (!id || !email) {
@@ -52,7 +53,8 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({ success: true });
   } catch (err) {
-    console.error('Create profile error:', err.message);
+    console.error('Full error:', JSON.stringify(err, null, 2));
+    console.error('Error message:', err.message);
     return res.status(500).json({ error: err.message });
   }
 };
