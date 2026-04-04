@@ -66,6 +66,24 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
     document.getElementById('badge-label').textContent = 'Yearly Protection';
     document.getElementById('badge-price').textContent = '$49.99/year';
   }
+
+  // Notify the NøFishing AI extension that payment succeeded
+  // Try known Chrome extension IDs, then fallback to postMessage for content script
+  function notifyExtension() {
+    var message = { type: 'ACTIVATE_SESSION', activated: true };
+
+    // Try sending via chrome.runtime.sendMessage (requires externally_connectable)
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+      // Try to detect extension — iterate known IDs or use discovery
+      // The extension content script will also pick up the postMessage fallback
+      try {
+        // Broadcast via postMessage for content script pickup
+        window.postMessage({ source: 'nofishing-website', type: 'ACTIVATE_SESSION', activated: true }, '*');
+      } catch (e) {}
+    }
+  }
+
+  notifyExtension();
 })();
 </script>
 
