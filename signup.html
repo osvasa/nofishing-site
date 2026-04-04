@@ -198,28 +198,7 @@ document.getElementById('signup-form').addEventListener('submit', async function
       return;
     }
 
-    // Create profile via serverless function
-    var profileRes = await fetch('/api/create-profile', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        id: result.data.user.id,
-        first_name: first,
-        last_name: last,
-        email: email,
-        plan: 'monthly',
-      }),
-    });
-
-    console.log('Create-profile response status:', profileRes.status);
-    var profileData = await profileRes.json();
-    console.log('Create-profile response body:', profileData);
-
-    if (!profileRes.ok) {
-      console.error('Profile creation failed:', profileData.error);
-    }
-
-    window.location.href = '/check-email.html?email=' + encodeURIComponent(email);
+    window.location.href = '/check-email?email=' + encodeURIComponent(email);
   } catch (err) {
     console.error('Signup caught error:', err);
     var banner = document.getElementById('signup-error-banner');

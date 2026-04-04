@@ -97,7 +97,47 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+var sbClient = window.supabase.createClient(
+  'https://pbdlyfdcrqeddqixbqoy.supabase.co',
+  'sb_publishable_rezQfX2x_cmLfB7iFu6vJg_BRJAPrjp'
+);
+
+// On page load, create profile if user has a confirmed session
+(async function() {
+  try {
+    var sessionResult = await sbClient.auth.getSession();
+    var session = sessionResult.data.session;
+    if (!session) return;
+
+    var user = session.user;
+    var meta = user.user_metadata || {};
+
+    // Check if profile already exists
+    var existing = await sbClient.from('profiles').select('id').eq('id', user.id).single();
+    if (existing.data) return; // Profile already exists
+
+    // Create profile via serverless function
+    console.log('Creating profile for confirmed user:', user.email);
+    var res = await fetch('/api/create-profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: user.id,
+        first_name: meta.first_name || '',
+        last_name: meta.last_name || '',
+        email: user.email,
+        plan: 'monthly',
+      }),
+    });
+    var data = await res.json();
+    console.log('Profile creation result:', res.status, data);
+  } catch (err) {
+    console.error('Profile creation error:', err);
+  }
+})();
+
 function selectPlan(plan) {
   var params = new URLSearchParams(window.location.search);
   var email = params.get('email') || '';
