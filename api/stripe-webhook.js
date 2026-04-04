@@ -1,4 +1,5 @@
 const Stripe = require('stripe');
+const nodemailer = require('nodemailer');
 
 // Vercel doesn't parse the body for webhooks — we need the raw body
 // Export config to disable body parsing
@@ -70,7 +71,7 @@ module.exports = async (req, res) => {
 
     // Check if profile already exists
     const checkResponse = await fetch(
-      `${supabaseUrl}/rest/v1/profiles?email=eq.${encodeURIComponent(email)}&select=id`,
+      `${supabaseUrl}/rest/v1/profiles?email=eq.${encodeURIComponent(email)}&select=id,first_name`,
       {
         method: 'GET',
         headers: {
@@ -206,6 +207,72 @@ module.exports = async (req, res) => {
       }
 
       console.log(`User ${email} profile created and activated successfully`);
+    }
+
+    // Send activation email
+    const smtpPassword = process.env.SMTP_PASSWORD;
+    if (smtpPassword) {
+      try {
+        // Get first name — from existing profile check or from insert path
+        let activationName = '';
+        if (Array.isArray(existingProfiles) && existingProfiles.length > 0) {
+          activationName = existingProfiles[0].first_name || '';
+        } else {
+          activationName = firstName || '';
+        }
+        const displayName = activationName || 'there';
+        const planLabel = plan === 'yearly' ? 'Yearly Protection ($49.99/year)' : 'Monthly Protection ($4.99/month)';
+        const renewalDate = new Date(nextRenewal).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        const transporter = nodemailer.createTransport({
+          host: 'smtp.protonmail.ch',
+          port: 587,
+          secure: false,
+          auth: {
+            user: 'hello@nofishing.ai',
+            pass: smtpPassword,
+          },
+        });
+
+        await transporter.sendMail({
+          from: '"NøFishing AI" <hello@nofishing.ai>',
+          to: email,
+          subject: "You're Protected — NøFishing AI is Active",
+          html: `
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"/></head>
+<body style="margin:0;padding:0;background:#111111;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#111111;padding:40px 20px;">
+    <tr><td align="center">
+      <table width="500" cellpadding="0" cellspacing="0" style="max-width:500px;width:100%;">
+        <tr><td style="padding-bottom:24px;text-align:center;">
+          <img src="https://nofishing.ai/images/logo.png" alt="NøFishing AI" style="height:30px;width:auto;"/>
+        </td></tr>
+        <tr><td style="background:#1a1a1a;border-radius:12px;padding:36px 28px;text-align:center;">
+          <h1 style="color:#ffffff;font-size:24px;font-weight:800;margin:0 0 16px;">Hi ${displayName}!</h1>
+          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0 0 20px;">Your NøFishing AI protection is now active and running silently in your browser.</p>
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.05);border-radius:8px;padding:16px;margin:0 0 24px;">
+            <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">Plan</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${planLabel}</td></tr>
+            <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">Renews</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${renewalDate}</td></tr>
+          </table>
+          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0 0 28px;">Stay safe out there.</p>
+          <a href="https://nofishing.ai" style="display:inline-block;padding:14px 32px;background:#EC220C;color:#ffffff;text-decoration:none;border-radius:8px;font-size:15px;font-weight:800;">View Your Protection</a>
+        </td></tr>
+        <tr><td style="padding-top:24px;text-align:center;">
+          <p style="color:rgba(255,255,255,0.3);font-size:11px;margin:0;">NøFishing AI &mdash; AI-Powered Phishing Protection</p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`,
+        });
+
+        console.log(`Activation email sent to ${email}`);
+      } catch (emailErr) {
+        console.error('Activation email failed:', emailErr.message);
+      }
     }
 
     return res.status(200).json({ received: true, activated: email });
