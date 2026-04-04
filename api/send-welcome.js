@@ -27,7 +27,6 @@ module.exports = async (req, res) => {
     }
 
     const name = first_name || 'there';
-    const paymentUrl = `https://nofishing.ai/payment?email=${encodeURIComponent(email)}&plan=monthly`;
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.protonmail.ch',
@@ -56,9 +55,8 @@ module.exports = async (req, res) => {
         </td></tr>
         <tr><td style="background:#1a1a1a;border-radius:12px;padding:36px 28px;text-align:center;">
           <h1 style="color:#ffffff;font-size:24px;font-weight:800;margin:0 0 16px;">Hi ${name}!</h1>
-          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0 0 12px;">Welcome to NøFishing AI. You're one step away from full protection.</p>
-          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0 0 28px;">Complete your payment to activate your AI-powered phishing shield.</p>
-          <a href="${paymentUrl}" style="display:inline-block;padding:14px 32px;background:#EC220C;color:#ffffff;text-decoration:none;border-radius:8px;font-size:15px;font-weight:800;">Activate My Protection</a>
+          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0 0 12px;">Welcome to NøFishing AI. You've successfully installed the extension — you're one step closer to staying safe online.</p>
+          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0;">We'll let you know as soon as your protection is active.</p>
         </td></tr>
         <tr><td style="padding-top:24px;text-align:center;">
           <p style="color:rgba(255,255,255,0.3);font-size:11px;margin:0;">NøFishing AI &mdash; AI-Powered Phishing Protection</p>
