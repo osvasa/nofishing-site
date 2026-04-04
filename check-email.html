@@ -40,6 +40,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
     <h1 class="card-title">Check your email!</h1>
     <p class="card-sub">We sent a confirmation link to <strong id="confirm-email">your email</strong>. Click it to confirm your account and choose your plan.</p>
     <p class="card-hint">Didn't get it? Check your spam folder.</p>
+    <button id="btn-resend" style="background:none;border:none;color:#999;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;margin-top:12px;text-decoration:underline;">Resend confirmation email</button>
   </div>
 </div>
 
@@ -55,6 +56,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function() {
   var params = new URLSearchParams(window.location.search);
@@ -62,6 +64,29 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   if (email) {
     document.getElementById('confirm-email').textContent = email;
   }
+
+  var sbClient = window.supabase.createClient(
+    'https://pbdlyfdcrqeddqixbqoy.supabase.co',
+    'sb_publishable_rezQfX2x_cmLfB7iFu6vJg_BRJAPrjp'
+  );
+
+  document.getElementById('btn-resend').addEventListener('click', async function() {
+    if (!email) return;
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    try {
+      await sbClient.auth.resend({ type: 'signup', email: email });
+      btn.textContent = 'Email sent!';
+      setTimeout(function() {
+        btn.textContent = 'Resend confirmation email';
+        btn.disabled = false;
+      }, 3000);
+    } catch (err) {
+      btn.textContent = 'Failed — try again';
+      btn.disabled = false;
+    }
+  });
 })();
 </script>
 
