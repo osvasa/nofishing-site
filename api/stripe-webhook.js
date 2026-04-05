@@ -224,6 +224,14 @@ module.exports = async (req, res) => {
         const planLabel = plan === 'yearly' ? 'Yearly Protection ($49.99/year)' : 'Monthly Protection ($4.99/month)';
         const renewalDate = new Date(nextRenewal).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
+        // Generate license key from user id
+        let licenseKey = '—';
+        const profileId = (Array.isArray(existingProfiles) && existingProfiles.length > 0) ? existingProfiles[0].id : (userId || '');
+        if (profileId) {
+          const clean = profileId.replace(/-/g, '');
+          licenseKey = 'NFAI-' + clean.substring(0, 4).toUpperCase() + '-' + clean.substring(4, 8).toUpperCase();
+        }
+
         const transporter = nodemailer.createTransport({
           host: 'smtp.protonmail.ch',
           port: 587,
@@ -252,12 +260,12 @@ module.exports = async (req, res) => {
         <tr><td style="background:#1a1a1a;border-radius:12px;padding:36px 28px;text-align:center;">
           <h1 style="color:#ffffff;font-size:24px;font-weight:800;margin:0 0 16px;">Hi ${displayName}!</h1>
           <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0 0 20px;">Your NøFishing AI protection is now active and running silently in your browser.</p>
-          <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.05);border-radius:8px;padding:16px;margin:0 0 24px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.05);border-radius:8px;padding:16px;margin:0 0 20px;">
             <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">Plan</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${planLabel}</td></tr>
             <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">Renews</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${renewalDate}</td></tr>
+            <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">License</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${licenseKey}</td></tr>
           </table>
-          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0 0 28px;">Stay safe out there.</p>
-          <a href="https://nofishing.ai" style="display:inline-block;padding:14px 32px;background:#EC220C;color:#ffffff;text-decoration:none;border-radius:8px;font-size:15px;font-weight:800;">View Your Protection</a>
+          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0;">Stay safe out there.</p>
         </td></tr>
         <tr><td style="padding-top:24px;text-align:center;">
           <p style="color:rgba(255,255,255,0.3);font-size:11px;margin:0;">NøFishing AI &mdash; AI-Powered Phishing Protection</p>
