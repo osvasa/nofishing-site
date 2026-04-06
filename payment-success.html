@@ -50,7 +50,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
       <span class="active-dot"></span>
       <span class="active-text">Protection Active</span>
     </div>
-    <button class="btn-close" onclick="window.open('', '_self').close()">Start browsing safely &rarr;</button>
+    <button class="btn-close cta-button">Start browsing safely &rarr;</button>
   </div>
 </div>
 
@@ -84,6 +84,11 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   }
 
   notifyExtension();
+
+  document.querySelector('.cta-button').addEventListener('click', () => {
+    window.postMessage({ source: 'nofishing-payment', type: 'CLOSE_TAB' }, '*');
+    setTimeout(() => { window.open('', '_self').close(); }, 500);
+  });
 })();
 </script>
 
