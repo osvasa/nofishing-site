@@ -39,7 +39,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 
 <div class="success-wrap">
   <div class="success-card">
-    <img src="/images/fish-round.png" style="width:120px;height:120px;display:block;margin:0 auto 24px auto;">
+    <div class="check-circle"><span>&#10003;</span></div>
     <h1 class="success-title">You're Protected.</h1>
     <p class="success-sub">Payment confirmed. NøFishing AI is now actively guarding your browser against phishing, scams, and fraud.</p>
     <div class="plan-badge">
@@ -50,7 +50,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
       <span class="active-dot"></span>
       <span class="active-text">Protection Active</span>
     </div>
-    <button class="btn-close" id="btn-close-tab">Start browsing safely &rarr;</button>
+    <button class="btn-close" onclick="window.open('', '_self').close()">Start browsing safely &rarr;</button>
   </div>
 </div>
 
@@ -84,18 +84,6 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
   }
 
   notifyExtension();
-
-  // Close tab button
-  document.getElementById('btn-close-tab').addEventListener('click', function() {
-    // Try extension message first
-    if (typeof chrome !== 'undefined' && chrome.runtime) {
-      chrome.runtime.sendMessage({ type: 'CLOSE_TAB' });
-    }
-    // Fallback
-    setTimeout(function() {
-      window.open('', '_self').close();
-    }, 300);
-  });
 })();
 </script>
 
