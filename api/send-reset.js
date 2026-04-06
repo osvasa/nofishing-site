@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
     });
 
     if (error) {
-      console.error('Supabase generateLink error:', error.message);
+      console.error('Supabase generateLink error:', error.message, JSON.stringify(error));
       return res.status(400).json({ error: error.message });
     }
 
@@ -96,7 +96,7 @@ module.exports = async (req, res) => {
     console.log(`Reset email sent to ${email}`);
     return res.status(200).json({ success: true });
   } catch (err) {
-    console.error('Send reset email error:', err.message);
+    console.error('Send reset email error:', err.message, err.stack);
     return res.status(500).json({ error: err.message });
   }
 };
