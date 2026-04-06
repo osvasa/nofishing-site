@@ -56,7 +56,7 @@ module.exports = async (req, res) => {
         <tr><td style="background:#EC220C;border-radius:12px;padding:36px 28px;text-align:center;">
           <h1 style="color:#ffffff;font-size:24px;font-weight:800;margin:0 0 16px;">Hi ${name}!</h1>
           <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0 0 20px;">Welcome to NøFishing AI. You've successfully installed the extension and you're one step closer to staying safe online.</p>
-          <p style="color:#ffffff;font-size:15px;line-height:1.6;margin:0;font-weight:600;">You are now AI Protected.</p>
+          <p style="color:#ffffff;font-size:15px;line-height:1.6;margin:0;font-weight:600;">You're on your way to full AI protection — complete your plan selection to activate your shield.</p>
         </td></tr>
         <tr><td style="padding-top:24px;text-align:center;">
           <p style="color:rgba(255,255,255,0.3);font-size:11px;margin:0;">NøFishing AI &mdash; AI-Powered Phishing Protection</p>

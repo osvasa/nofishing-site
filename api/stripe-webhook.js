@@ -263,8 +263,9 @@ module.exports = async (req, res) => {
           <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.05);border-radius:8px;padding:16px;margin:0 0 20px;">
             <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">Plan</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${planLabel}</td></tr>
             <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">License</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${licenseKey}</td></tr>
+            <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">Protected since</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td></tr>
           </table>
-          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0;">You are now AI Protected.</p>
+          <p style="font-size:15px;line-height:1.6;margin:0;"><strong style="color:#ffffff;">You are now AI Protected.</strong></p>
         </td></tr>
         <tr><td style="padding-top:24px;text-align:center;">
           <p style="color:rgba(255,255,255,0.3);font-size:11px;margin:0;">NøFishing AI &mdash; AI-Powered Phishing Protection</p>
