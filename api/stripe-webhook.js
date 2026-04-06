@@ -257,15 +257,14 @@ module.exports = async (req, res) => {
         <tr><td style="padding-bottom:24px;text-align:center;">
           <img src="https://nofishing.ai/images/logo.png" alt="NøFishing AI" style="height:30px;width:auto;"/>
         </td></tr>
-        <tr><td style="background:#1a1a1a;border-radius:12px;padding:36px 28px;text-align:center;">
+        <tr><td style="background:#EC220C;border-radius:12px;padding:36px 28px;text-align:center;">
           <h1 style="color:#ffffff;font-size:24px;font-weight:800;margin:0 0 16px;">Hi ${displayName}!</h1>
           <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0 0 20px;">Your NøFishing AI protection is now active and running silently in your browser.</p>
           <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.05);border-radius:8px;padding:16px;margin:0 0 20px;">
             <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">Plan</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${planLabel}</td></tr>
-            <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">Renews</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${renewalDate}</td></tr>
             <tr><td style="padding:6px 16px;color:rgba(255,255,255,0.5);font-size:12px;">License</td><td style="padding:6px 16px;color:#ffffff;font-size:12px;text-align:right;font-weight:600;">${licenseKey}</td></tr>
           </table>
-          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0;">Stay safe out there.</p>
+          <p style="color:rgba(255,255,255,0.7);font-size:15px;line-height:1.6;margin:0;">You are now AI Protected.</p>
         </td></tr>
         <tr><td style="padding-top:24px;text-align:center;">
           <p style="color:rgba(255,255,255,0.3);font-size:11px;margin:0;">NøFishing AI &mdash; AI-Powered Phishing Protection</p>
