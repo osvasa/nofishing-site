@@ -15,42 +15,35 @@
 body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #222;}
 .topbar img{height:24px;width:auto;}
-.btn-logout-sm{background:none;border:1px solid #333;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;cursor:pointer;transition:color 0.2s;}
-.btn-logout-sm:hover{color:var(--white);}
+.btn-logout-sm{background:none;border:1px solid #333;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;cursor:pointer;}
 .content{flex:1;padding:20px 20px 100px;max-width:480px;width:100%;margin:0 auto;}
 .welcome{font-size:20px;font-weight:900;margin-bottom:4px;}
 .welcome-sub{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:20px;}
-.card{background:#1a1a1a;border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid #222;}
+.stats{display:flex;gap:8px;margin-bottom:16px;}
+.stat-box{flex:1;background:#1a1a1a;border-radius:12px;padding:14px 8px;text-align:center;border:1px solid #222;}
+.stat-num{font-size:26px;font-weight:900;line-height:1;margin-bottom:4px;}
+.stat-label{font-size:8px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.04em;}
+.stat-num.safe{color:#22C55E;}
+.stat-num.warning{color:#F59E0B;}
+.stat-num.danger{color:var(--red);}
+.stat-num.none{color:rgba(255,255,255,0.2);}
+.card{background:#1a1a1a;border-radius:12px;padding:14px;margin-bottom:16px;border:1px solid #222;}
 .card-title{font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
 .card-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;}
 .card-label{font-size:12px;color:rgba(255,255,255,0.45);font-weight:600;}
 .card-value{font-size:12px;color:var(--white);font-weight:500;text-align:right;max-width:60%;word-break:break-all;}
-.stats{display:flex;gap:8px;margin-bottom:16px;}
-.stat-box{flex:1;background:#1a1a1a;border-radius:12px;padding:16px 8px;text-align:center;border:1px solid #222;}
-.stat-num{font-size:28px;font-weight:900;line-height:1;margin-bottom:4px;}
-.stat-label{font-size:8px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.04em;}
-.stat-note{font-size:9px;color:rgba(255,255,255,0.2);text-align:center;margin-top:-8px;margin-bottom:16px;}
-.btn-scan{display:block;width:100%;padding:16px;background:var(--red);color:var(--white);border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:16px;transition:opacity 0.15s;text-decoration:none;text-align:center;}
+.scan-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #222;}
+.scan-item:last-child{border-bottom:none;}
+.scan-badge{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.scan-badge.safe{background:#22C55E;}
+.scan-badge.warning{background:#F59E0B;}
+.scan-badge.danger{background:var(--red);}
+.scan-url{font-size:12px;color:rgba(255,255,255,0.6);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.scan-time{font-size:10px;color:rgba(255,255,255,0.25);flex-shrink:0;white-space:nowrap;}
+.scan-empty{font-size:12px;color:rgba(255,255,255,0.2);padding:12px 0;text-align:center;}
+.note{font-size:10px;color:rgba(255,255,255,0.2);text-align:center;margin-bottom:16px;}
+.btn-scan{display:block;width:100%;padding:16px;background:var(--red);color:var(--white);border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:16px;text-decoration:none;text-align:center;transition:opacity 0.15s;}
 .btn-scan:hover{opacity:0.9;}
-.url-check{display:flex;gap:8px;margin-bottom:20px;}
-.url-check input{flex:1;padding:12px 14px;background:#1a1a1a;border:1px solid #333;border-radius:10px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;}
-.url-check input:focus{border-color:var(--red);}
-.url-check input::placeholder{color:rgba(255,255,255,0.25);}
-.url-check button{padding:12px 16px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;}
-.url-result{display:none;border-radius:10px;padding:14px;margin-bottom:16px;font-size:12px;line-height:1.6;word-break:break-all;}
-.url-result.show{display:block;}
-.url-result.safe{background:rgba(34,197,94,0.1);border:1px solid #22C55E;color:#22C55E;}
-.url-result.warning{background:rgba(245,158,11,0.1);border:1px solid #F59E0B;color:#F59E0B;}
-.url-result.danger{background:rgba(236,34,12,0.1);border:1px solid var(--red);color:var(--red);}
-.url-result strong{display:block;font-size:14px;margin-bottom:4px;}
-.device-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #222;}
-.device-item:last-child{border-bottom:none;}
-.device-info{flex:1;}
-.device-name{font-size:13px;font-weight:600;color:var(--white);}
-.device-meta{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;}
-.device-this{font-size:9px;color:#22C55E;font-weight:700;text-transform:uppercase;}
-.btn-remove-device{background:none;border:1px solid #333;color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif;font-size:10px;font-weight:600;padding:4px 10px;border-radius:6px;cursor:pointer;transition:color 0.2s;}
-.btn-remove-device:hover{color:var(--red);border-color:var(--red);}
 .bottomnav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0 env(safe-area-inset-bottom, 10px);z-index:100;}
 .bottomnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,0.35);font-size:10px;font-weight:600;transition:color 0.2s;}
 .bottomnav a.active{color:var(--red);}
@@ -70,6 +63,16 @@ body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);m
     <div class="welcome" id="welcome-name">Welcome back</div>
     <div class="welcome-sub">Your AI protection is active.</div>
 
+    <div class="stats">
+      <div class="stat-box"><div class="stat-num" id="s-total">0</div><div class="stat-label">URLs Checked</div></div>
+      <div class="stat-box"><div class="stat-num" id="s-threats">0</div><div class="stat-label">Threats Caught</div></div>
+      <div class="stat-box"><div class="stat-num none" id="s-last">—</div><div class="stat-label">Last Scan</div></div>
+    </div>
+
+    <a href="/scan" class="btn-scan">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;margin-top:-2px"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Scan QR Code
+    </a>
+
     <div class="card">
       <div class="card-title">Account</div>
       <div class="card-row"><span class="card-label">Email</span><span class="card-value" id="d-email">—</span></div>
@@ -78,39 +81,23 @@ body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);m
       <div class="card-row"><span class="card-label">License</span><span class="card-value" id="d-license">—</span></div>
     </div>
 
-    <div class="stats">
-      <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Sites Safe</div></div>
-      <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Threats Blocked</div></div>
-      <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Ads Blocked</div></div>
-    </div>
-    <div class="stat-note">Stats tracked via browser extension</div>
-
-    <a href="/scan" class="btn-scan">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;margin-top:-2px"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Scan QR Code
-    </a>
-
-    <div class="card-title" style="margin-bottom:8px;">Check a URL</div>
-    <div class="url-check">
-      <input type="text" id="url-input" placeholder="https://example.com" autocapitalize="none" autocorrect="off" spellcheck="false"/>
-      <button id="btn-url-check">Check</button>
-    </div>
-    <div class="url-result" id="url-result"></div>
-
     <div class="card">
-      <div class="card-title">Your Devices</div>
-      <div id="devices-list"><div style="font-size:12px;color:rgba(255,255,255,0.3);padding:8px 0;">Loading devices...</div></div>
+      <div class="card-title">Recent Scans</div>
+      <div id="recent-scans"><div class="scan-empty">No scans yet. Try scanning a QR code!</div></div>
     </div>
+
+    <div class="note">Browser extension stats tracked separately on desktop</div>
   </div>
 </div>
 
 <div class="bottomnav">
-  <a href="/app/dashboard" class="active">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Dashboard
-  </a>
   <a href="/scan">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
     Scan
+  </a>
+  <a href="/app/dashboard" class="active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Dashboard
   </a>
   <a href="/app/account">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -124,18 +111,12 @@ body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);m
   var SUPABASE_URL = 'https://pbdlyfdcrqeddqixbqoy.supabase.co';
   var SUPABASE_KEY = 'sb_publishable_rezQfX2x_cmLfB7iFu6vJg_BRJAPrjp';
   var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  var currentDeviceId = null;
 
-  // Auth guard
   sb.auth.getSession().then(function(res) {
-    if (!res.data.session) {
-      window.location.href = '/app';
-      return;
-    }
+    if (!res.data.session) { window.location.href = '/app'; return; }
     loadDashboard(res.data.session);
   });
 
-  // Logout
   document.getElementById('btn-logout').addEventListener('click', async function() {
     await sb.auth.signOut();
     window.location.href = '/app';
@@ -145,17 +126,14 @@ body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);m
     var userId = session.user.id;
     var email = session.user.email;
 
-    // Load profile
     var profileRes = await sb.from('profiles').select('first_name, plan, activated, created_at, email').eq('id', userId).single();
     var profile = profileRes.data;
 
-    if (!profile || !profile.activated) {
-      window.location.href = '/app';
-      return;
-    }
+    if (!profile || !profile.activated) { window.location.href = '/app'; return; }
 
-    // Populate UI
-    document.getElementById('welcome-name').textContent = 'Welcome back, ' + (profile.first_name || 'there');
+    var firstName = profile.first_name || 'there';
+    firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+    document.getElementById('welcome-name').textContent = 'Welcome back, ' + firstName;
     document.getElementById('d-email').textContent = profile.email || email;
     document.getElementById('d-plan').textContent = profile.plan === 'yearly' ? 'Yearly $49.99/yr' : 'Monthly $4.99/mo';
 
@@ -171,170 +149,48 @@ body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);m
     document.getElementById('loading').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
 
-    // Register this device
-    registerDevice(email);
-
-    // Load devices
-    loadDevices(email);
-  }
-
-  // ── Device Registration ──
-
-  function getMobileDeviceName() {
-    var ua = navigator.userAgent;
-    var device = 'Mobile';
-    if (/iPhone/i.test(ua)) device = 'iPhone';
-    else if (/iPad/i.test(ua)) device = 'iPad';
-    else if (/Android/i.test(ua)) device = 'Android';
-
-    var browser = 'Browser';
-    if (ua.includes('CriOS') || (ua.includes('Chrome') && !ua.includes('Edg'))) browser = 'Chrome';
-    else if (ua.includes('FxiOS') || ua.includes('Firefox')) browser = 'Firefox';
-    else if (ua.includes('Safari') && !ua.includes('Chrome') && !ua.includes('CriOS')) browser = 'Safari';
-    else if (ua.includes('Edg')) browser = 'Edge';
-
-    return device + ' — ' + browser;
-  }
-
-  function getDeviceId() {
-    var id = localStorage.getItem('nf_device_id');
-    if (!id) {
-      id = crypto.randomUUID();
-      localStorage.setItem('nf_device_id', id);
-    }
-    currentDeviceId = id;
-    return id;
-  }
-
-  function registerDevice(email) {
-    var deviceId = getDeviceId();
-    fetch('/api/register-device', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        device_id: deviceId,
-        device_type: 'mobile',
-        device_name: getMobileDeviceName(),
-      }),
-    }).catch(function() {});
-  }
-
-  async function loadDevices(email) {
-    var container = document.getElementById('devices-list');
+    // Load scan stats
     try {
-      var res = await fetch('/api/check-activation?email=' + encodeURIComponent(email));
-      // We don't have a list-devices endpoint, so re-register to get current state
-      var regRes = await fetch('/api/register-device', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          device_id: getDeviceId(),
-          device_type: 'mobile',
-          device_name: getMobileDeviceName(),
-        }),
-      });
-      var regData = await regRes.json();
+      var statsRes = await fetch('/api/get-scan-stats?email=' + encodeURIComponent(profile.email || email));
+      var stats = await statsRes.json();
 
-      // If limit reached, we got the devices list
-      if (regData.devices && regData.devices.length > 0) {
-        renderDevices(container, regData.devices, email);
-        return;
+      document.getElementById('s-total').textContent = stats.total || 0;
+      document.getElementById('s-threats').textContent = stats.threats || 0;
+
+      if (stats.lastScan) {
+        var lastEl = document.getElementById('s-last');
+        var labels = { safe: 'SAFE', warning: 'WARN', danger: 'RISK' };
+        lastEl.textContent = labels[stats.lastScan.result] || '—';
+        lastEl.className = 'stat-num ' + (stats.lastScan.result || 'none');
       }
 
-      // Otherwise this device registered fine — show just this device
-      container.innerHTML = '<div class="device-item"><div class="device-info"><div class="device-name">' + escapeHtml(getMobileDeviceName()) + '</div><div class="device-this">This device</div></div></div>';
-    } catch (e) {
-      container.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,0.3);padding:8px 0;">Could not load devices.</div>';
-    }
-  }
-
-  function renderDevices(container, devices, email) {
-    container.innerHTML = '';
-    devices.forEach(function(dev) {
-      var isThis = dev.device_id === currentDeviceId;
-      var item = document.createElement('div');
-      item.className = 'device-item';
-      var lastSeen = dev.last_seen ? new Date(dev.last_seen).toLocaleDateString() : '';
-      item.innerHTML = '<div class="device-info"><div class="device-name">' + escapeHtml(dev.device_name) + '</div>'
-        + (isThis ? '<div class="device-this">This device</div>' : '<div class="device-meta">' + dev.device_type + ' · Last seen ' + lastSeen + '</div>')
-        + '</div>';
-
-      if (!isThis) {
-        var btn = document.createElement('button');
-        btn.className = 'btn-remove-device';
-        btn.textContent = 'Remove';
-        btn.addEventListener('click', function() {
-          removeDevice(email, dev.device_id, container, devices);
+      var container = document.getElementById('recent-scans');
+      if (stats.recentScans && stats.recentScans.length > 0) {
+        container.innerHTML = '';
+        stats.recentScans.forEach(function(scan) {
+          var item = document.createElement('div');
+          item.className = 'scan-item';
+          var truncUrl = scan.url.length > 40 ? scan.url.substring(0, 40) + '...' : scan.url;
+          item.innerHTML = '<span class="scan-badge ' + scan.result + '"></span>'
+            + '<span class="scan-url">' + escapeHtml(truncUrl) + '</span>'
+            + '<span class="scan-time">' + timeAgo(scan.scanned_at) + '</span>';
+          container.appendChild(item);
         });
-        item.appendChild(btn);
       }
-      container.appendChild(item);
-    });
-  }
-
-  async function removeDevice(email, deviceId, container, devices) {
-    try {
-      await fetch('/api/remove-device', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, device_id: deviceId }),
-      });
-      var remaining = devices.filter(function(d) { return d.device_id !== deviceId; });
-      renderDevices(container, remaining, email);
     } catch (e) {}
   }
 
-  // ── URL Check ──
-
-  document.getElementById('btn-url-check').addEventListener('click', checkUrl);
-  document.getElementById('url-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') checkUrl();
-  });
-
-  async function checkUrl() {
-    var input = document.getElementById('url-input');
-    var url = input.value.trim().replace(/^url:\s*/i, '');
-    if (!url) return;
-    input.value = '';
-
-    var resultEl = document.getElementById('url-result');
-    resultEl.className = 'url-result';
-    resultEl.innerHTML = 'Checking...';
-    resultEl.className = 'url-result show';
-    resultEl.style.background = '#1a1a1a';
-    resultEl.style.border = '1px solid #333';
-    resultEl.style.color = 'rgba(255,255,255,0.5)';
-
-    try {
-      var res = await fetch('/api/scan-url', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url }),
-      });
-      var data = await res.json();
-      resultEl.style = '';
-
-      var labels = { safe: 'SAFE', warning: 'WARNING', danger: 'DANGEROUS' };
-      var html = '<strong>' + (labels[data.level] || 'SAFE') + ' (score: ' + (data.score || 0) + ')</strong>' + escapeHtml(url);
-      if (data.reasons && data.reasons.length > 0) {
-        html += '<br/>' + data.reasons.map(function(r) { return '• ' + escapeHtml(r); }).join('<br/>');
-      }
-      resultEl.innerHTML = html;
-      resultEl.className = 'url-result show ' + (data.level || 'safe');
-    } catch (e) {
-      resultEl.style = '';
-      resultEl.className = 'url-result show danger';
-      resultEl.innerHTML = '<strong>Error</strong>Could not check URL.';
-    }
+  function timeAgo(dateStr) {
+    var now = Date.now();
+    var then = new Date(dateStr).getTime();
+    var diff = Math.floor((now - then) / 1000);
+    if (diff < 60) return 'just now';
+    if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+    if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+    return Math.floor(diff / 86400) + 'd ago';
   }
 
-  function escapeHtml(str) {
-    var div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
+  function escapeHtml(str) { var d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 })();
 </script>
 </body>

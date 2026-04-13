@@ -5,149 +5,162 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>NøFishing AI — QR Scanner</title>
 <meta name="description" content="Scan any QR code safely before visiting. AI-powered threat detection.">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="theme-color" content="#111111"/>
+<link rel="manifest" href="/manifest.json"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--red:#EC220C;--black:#111111;--white:#ffffff;}
 body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
-
-.header{background:var(--black);padding:20px 24px;text-align:center;border-bottom:1px solid #222;}
-.header img{height:28px;width:auto;}
-
-.main{flex:1;padding:24px 20px 40px;max-width:480px;width:100%;margin:0 auto;}
-
-h1{font-size:22px;font-weight:900;color:var(--white);text-align:center;margin-bottom:6px;}
-.subtitle{font-size:13px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:24px;line-height:1.5;}
-
-.btn-scan{display:block;width:100%;padding:16px;background:var(--red);color:var(--white);border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:opacity 0.15s;margin-bottom:20px;}
+.header{padding:16px 24px;text-align:center;border-bottom:1px solid #222;}
+.header img{height:24px;width:auto;}
+.main{flex:1;padding:20px 20px 100px;max-width:480px;width:100%;margin:0 auto;}
+h1{font-size:22px;font-weight:900;text-align:center;margin-bottom:4px;}
+.subtitle{font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:20px;}
+.btn-scan{display:block;width:100%;padding:16px;background:var(--red);color:var(--white);border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:16px;transition:opacity 0.15s;}
 .btn-scan:hover{opacity:0.9;}
 .btn-scan:disabled{opacity:0.5;cursor:not-allowed;}
-
-.scanner-container{display:none;margin-bottom:20px;}
+.scanner-container{display:none;margin-bottom:16px;}
 .scanner-container.active{display:block;}
-.video-wrap{position:relative;border-radius:12px;overflow:hidden;background:#000;margin-bottom:12px;}
-.video-wrap video{width:100%;display:block;max-height:300px;object-fit:cover;}
+.video-wrap{position:relative;border-radius:12px;overflow:hidden;background:#000;margin-bottom:10px;}
+.video-wrap video{width:100%;display:block;max-height:240px;object-fit:cover;}
 .scan-line{position:absolute;top:0;left:5%;width:90%;height:2px;background:var(--red);box-shadow:0 0 8px var(--red);animation:scanMove 2s ease-in-out infinite;}
 @keyframes scanMove{0%{top:10%}50%{top:85%}100%{top:10%}}
 canvas{display:none;}
-
-.btn-stop{display:block;width:100%;padding:12px;background:#333;color:rgba(255,255,255,0.7);border:1px solid #444;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.15s;}
-.btn-stop:hover{background:#444;}
-
-.result-card{display:none;border-radius:12px;padding:20px;margin-bottom:20px;text-align:center;}
+.btn-stop{display:block;width:100%;padding:10px;background:#222;color:rgba(255,255,255,0.5);border:1px solid #333;border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;}
+.divider-line{flex:1;height:1px;background:#333;}
+.divider-text{font-size:10px;font-weight:700;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.08em;}
+.manual-input{display:flex;gap:8px;margin-bottom:16px;}
+.manual-input input{flex:1;padding:12px 14px;background:#1a1a1a;border:1px solid #333;border-radius:10px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;}
+.manual-input input:focus{border-color:var(--red);}
+.manual-input input::placeholder{color:rgba(255,255,255,0.25);}
+.manual-input button{padding:12px 18px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;}
+.spinner{display:none;text-align:center;padding:30px 0;}
+.spinner.active{display:block;}
+.spinner-dot{display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin:0 3px;animation:spinBounce 1.2s infinite ease-in-out;}
+.spinner-dot:nth-child(2){animation-delay:0.2s;}
+.spinner-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes spinBounce{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
+.spinner-text{font-size:11px;color:rgba(255,255,255,0.3);margin-top:10px;}
+.result-card{display:none;border-radius:12px;padding:18px;margin-bottom:16px;text-align:center;}
 .result-card.active{display:block;}
 .result-card.safe{background:rgba(34,197,94,0.1);border:2px solid #22C55E;}
 .result-card.warning{background:rgba(245,158,11,0.1);border:2px solid #F59E0B;}
 .result-card.danger{background:rgba(236,34,12,0.1);border:2px solid var(--red);}
-
-.result-verdict{font-size:20px;font-weight:900;margin-bottom:4px;}
+.result-verdict{font-size:18px;font-weight:900;margin-bottom:4px;}
 .result-card.safe .result-verdict{color:#22C55E;}
 .result-card.warning .result-verdict{color:#F59E0B;}
 .result-card.danger .result-verdict{color:var(--red);}
-
-.result-score{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:12px;}
-.result-url{font-size:13px;color:rgba(255,255,255,0.7);word-break:break-all;margin-bottom:16px;line-height:1.5;padding:10px 12px;background:rgba(255,255,255,0.05);border-radius:8px;}
-
-.result-reasons{text-align:left;margin-bottom:16px;}
-.result-reasons li{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.6;padding:4px 0 4px 16px;position:relative;list-style:none;}
+.result-score{font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:10px;}
+.result-url{font-size:12px;color:rgba(255,255,255,0.6);word-break:break-all;margin-bottom:14px;line-height:1.5;padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;}
+.result-reasons{text-align:left;margin-bottom:14px;list-style:none;padding:0;}
+.result-reasons li{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;padding:3px 0 3px 14px;position:relative;}
 .result-reasons li::before{content:'•';position:absolute;left:0;color:var(--red);font-weight:900;}
-
-.btn-visit{display:block;width:100%;padding:14px;background:#22C55E;color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:opacity 0.15s;text-decoration:none;text-align:center;margin-bottom:8px;}
-.btn-visit:hover{opacity:0.9;}
-
-.btn-back-safe{display:block;width:100%;padding:14px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:opacity 0.15s;margin-bottom:8px;}
-.btn-back-safe:hover{opacity:0.9;}
-
-.btn-scan-again{display:block;width:100%;padding:12px;background:#333;color:rgba(255,255,255,0.7);border:1px solid #444;border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.15s;}
-.btn-scan-again:hover{background:#444;}
-
-.divider{display:flex;align-items:center;gap:12px;margin:24px 0;}
-.divider-line{flex:1;height:1px;background:#333;}
-.divider-text{font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.08em;}
-
-.manual-input{display:flex;gap:8px;}
-.manual-input input{flex:1;padding:12px 14px;background:#1a1a1a;border:1px solid #333;border-radius:10px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;}
-.manual-input input:focus{border-color:var(--red);}
-.manual-input input::placeholder{color:rgba(255,255,255,0.25);}
-.manual-input button{padding:12px 20px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:opacity 0.15s;white-space:nowrap;}
-.manual-input button:hover{opacity:0.9;}
-
-.spinner{display:none;text-align:center;padding:40px 0;}
-.spinner.active{display:block;}
-.spinner-dot{display:inline-block;width:10px;height:10px;background:var(--red);border-radius:50%;margin:0 4px;animation:spinBounce 1.2s infinite ease-in-out;}
-.spinner-dot:nth-child(2){animation-delay:0.2s;}
-.spinner-dot:nth-child(3){animation-delay:0.4s;}
-@keyframes spinBounce{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
-.spinner-text{font-size:12px;color:rgba(255,255,255,0.4);margin-top:12px;}
-
-.footer{text-align:center;padding:16px 24px;font-size:11px;color:rgba(255,255,255,0.2);}
+.btn-visit{display:block;width:100%;padding:13px;background:#22C55E;color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;margin-bottom:8px;}
+.btn-back-safe{display:block;width:100%;padding:13px;background:var(--red);color:var(--white);border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px;}
+.btn-scan-again{display:block;width:100%;padding:10px;background:#222;color:rgba(255,255,255,0.5);border:1px solid #333;border-radius:10px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0 env(safe-area-inset-bottom, 10px);z-index:100;}
+.bottomnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,0.35);font-size:10px;font-weight:600;transition:color 0.2s;}
+.bottomnav a.active{color:var(--red);}
+.bottomnav svg{width:20px;height:20px;}
+.loading-gate{text-align:center;padding:60px 0;color:rgba(255,255,255,0.3);font-size:13px;}
 </style>
 </head>
 <body>
-
-<div class="header">
-  <a href="/"><img src="images/logo.png" alt="NøFishing AI"/></a>
-</div>
+<div class="header"><a href="/"><img src="/images/logo.png" alt="NøFishing AI"/></a></div>
 
 <div class="main">
-  <h1>QR Code Scanner</h1>
-  <p class="subtitle">Scan any QR code to check if it's safe before visiting.</p>
+  <div class="loading-gate" id="loading-gate">Loading...</div>
+  <div id="scan-content" style="display:none;">
+    <h1>QR Code Scanner</h1>
+    <p class="subtitle">Scan any QR code to check if it's safe before visiting.</p>
 
-  <button class="btn-scan" id="btn-start">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;margin-top:-2px"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Start Scanning
-  </button>
+    <button class="btn-scan" id="btn-start">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;margin-top:-2px"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Start Scanning
+    </button>
 
-  <div class="scanner-container" id="scanner-container">
-    <div class="video-wrap">
-      <video id="qr-video" autoplay playsinline></video>
-      <div class="scan-line"></div>
+    <div class="scanner-container" id="scanner-container">
+      <div class="video-wrap">
+        <video id="qr-video" autoplay playsinline></video>
+        <div class="scan-line"></div>
+      </div>
+      <canvas id="qr-canvas"></canvas>
+      <button class="btn-stop" id="btn-stop">Stop Scanning</button>
     </div>
-    <canvas id="qr-canvas"></canvas>
-    <button class="btn-stop" id="btn-stop">Stop Scanning</button>
-  </div>
 
-  <div class="spinner" id="spinner">
-    <div><span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span></div>
-    <div class="spinner-text">Analyzing URL with AI engine...</div>
-  </div>
+    <div class="spinner" id="spinner">
+      <div><span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span></div>
+      <div class="spinner-text">Analyzing URL with AI engine...</div>
+    </div>
 
-  <div class="result-card" id="result-card">
-    <div class="result-verdict" id="result-verdict"></div>
-    <div class="result-score" id="result-score"></div>
-    <div class="result-url" id="result-url"></div>
-    <ul class="result-reasons" id="result-reasons"></ul>
-    <div id="result-actions"></div>
-  </div>
+    <div class="result-card" id="result-card">
+      <div class="result-verdict" id="result-verdict"></div>
+      <div class="result-score" id="result-score"></div>
+      <div class="result-url" id="result-url"></div>
+      <ul class="result-reasons" id="result-reasons"></ul>
+      <div id="result-actions"></div>
+    </div>
 
-  <div class="divider">
-    <div class="divider-line"></div>
-    <span class="divider-text">or paste a URL</span>
-    <div class="divider-line"></div>
-  </div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-text">or paste a URL</span>
+      <div class="divider-line"></div>
+    </div>
 
-  <div class="manual-input">
-    <input type="text" id="manual-url" placeholder="https://example.com" autocapitalize="none" autocorrect="off" spellcheck="false"/>
-    <button id="btn-check">Check</button>
+    <div class="manual-input">
+      <input type="text" id="manual-url" placeholder="https://example.com" autocapitalize="none" autocorrect="off" spellcheck="false"/>
+      <button id="btn-check">Check</button>
+    </div>
   </div>
 </div>
 
-<div class="footer">NøFishing AI &mdash; AI-Powered Phishing Protection</div>
+<div class="bottomnav">
+  <a href="/scan" class="active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+    Scan
+  </a>
+  <a href="/app/dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Dashboard
+  </a>
+  <a href="/app/account">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Account
+  </a>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 <script>
 (function() {
-  const video = document.getElementById('qr-video');
-  const canvas = document.getElementById('qr-canvas');
-  const ctx = canvas.getContext('2d');
-  const scannerContainer = document.getElementById('scanner-container');
-  const resultCard = document.getElementById('result-card');
-  const spinner = document.getElementById('spinner');
-  const btnStart = document.getElementById('btn-start');
+  var SUPABASE_URL = 'https://pbdlyfdcrqeddqixbqoy.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_rezQfX2x_cmLfB7iFu6vJg_BRJAPrjp';
+  var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  var userEmail = null;
 
-  let stream = null;
-  let scanTimer = null;
+  // Auth guard
+  sb.auth.getSession().then(function(res) {
+    if (!res.data.session) {
+      window.location.href = '/app';
+      return;
+    }
+    userEmail = res.data.session.user.email;
+    document.getElementById('loading-gate').style.display = 'none';
+    document.getElementById('scan-content').style.display = 'block';
+  });
 
-  // ── Camera Scanner ──
+  var video = document.getElementById('qr-video');
+  var canvas = document.getElementById('qr-canvas');
+  var ctx = canvas.getContext('2d');
+  var scannerContainer = document.getElementById('scanner-container');
+  var resultCard = document.getElementById('result-card');
+  var spinner = document.getElementById('spinner');
+  var btnStart = document.getElementById('btn-start');
+  var stream = null;
+  var scanTimer = null;
 
   document.getElementById('btn-start').addEventListener('click', startScanner);
   document.getElementById('btn-stop').addEventListener('click', stopScanner);
@@ -205,23 +218,19 @@ canvas{display:none;}
     btnStart.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;margin-top:-2px"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Start Scanning';
   }
 
-  // ── Manual URL Check ──
-
+  // Manual URL
   document.getElementById('btn-check').addEventListener('click', function() {
     var url = document.getElementById('manual-url').value.trim();
     if (!url) return;
     document.getElementById('manual-url').value = '';
     analyzeDetectedUrl(url);
   });
-
   document.getElementById('manual-url').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
       var url = this.value.trim();
       if (url) { this.value = ''; analyzeDetectedUrl(url); }
     }
   });
-
-  // ── Analysis ──
 
   function analyzeDetectedUrl(rawUrl) {
     var url = rawUrl.trim().replace(/^url:\s*/i, '');
@@ -243,6 +252,20 @@ canvas{display:none;}
     .then(function(data) {
       spinner.className = 'spinner';
       showResult(url, data);
+      // Log scan to database
+      if (userEmail) {
+        fetch('/api/log-scan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: userEmail,
+            url: url,
+            result: data.level || 'safe',
+            score: data.score || 0,
+            reasons: data.reasons || [],
+          }),
+        }).catch(function() {});
+      }
     })
     .catch(function(err) {
       spinner.className = 'spinner';
@@ -254,54 +277,35 @@ canvas{display:none;}
     var level = data.level || 'safe';
     var score = data.score || 0;
     var reasons = data.reasons || [];
-
     resultCard.className = 'result-card active ' + level;
-
     var verdictLabels = { safe: 'SAFE', warning: 'WARNING', danger: 'DANGEROUS' };
     document.getElementById('result-verdict').textContent = verdictLabels[level] || 'SAFE';
     document.getElementById('result-score').textContent = 'Threat score: ' + score + '/100';
     document.getElementById('result-url').textContent = url;
-
     var reasonsEl = document.getElementById('result-reasons');
     reasonsEl.innerHTML = '';
-    if (reasons.length > 0) {
-      reasons.forEach(function(r) {
-        var li = document.createElement('li');
-        li.textContent = r;
-        reasonsEl.appendChild(li);
-      });
-    }
-
+    reasons.forEach(function(r) {
+      var li = document.createElement('li');
+      li.textContent = r;
+      reasonsEl.appendChild(li);
+    });
     var actionsEl = document.getElementById('result-actions');
     actionsEl.innerHTML = '';
-
     if (level === 'safe') {
-      var visitBtn = document.createElement('a');
-      visitBtn.href = url;
-      visitBtn.target = '_blank';
-      visitBtn.rel = 'noopener noreferrer';
-      visitBtn.className = 'btn-visit';
-      visitBtn.textContent = 'Visit Site';
-      actionsEl.appendChild(visitBtn);
+      var a = document.createElement('a');
+      a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      a.className = 'btn-visit'; a.textContent = 'Visit Site';
+      actionsEl.appendChild(a);
     } else {
-      var backBtn = document.createElement('button');
-      backBtn.className = 'btn-back-safe';
-      backBtn.textContent = 'Go Back to Safety';
-      backBtn.addEventListener('click', function() {
-        resultCard.className = 'result-card';
-        document.getElementById('manual-url').value = '';
-      });
-      actionsEl.appendChild(backBtn);
+      var b = document.createElement('button');
+      b.className = 'btn-back-safe'; b.textContent = 'Go Back to Safety';
+      b.addEventListener('click', function() { resultCard.className = 'result-card'; });
+      actionsEl.appendChild(b);
     }
-
-    var againBtn = document.createElement('button');
-    againBtn.className = 'btn-scan-again';
-    againBtn.textContent = 'Scan Another';
-    againBtn.addEventListener('click', function() {
-      resultCard.className = 'result-card';
-      document.getElementById('manual-url').value = '';
-    });
-    actionsEl.appendChild(againBtn);
+    var again = document.createElement('button');
+    again.className = 'btn-scan-again'; again.textContent = 'Scan Another';
+    again.addEventListener('click', function() { resultCard.className = 'result-card'; });
+    actionsEl.appendChild(again);
   }
 
   function showError(msg) {
@@ -312,12 +316,13 @@ canvas{display:none;}
     document.getElementById('result-reasons').innerHTML = '';
     var actionsEl = document.getElementById('result-actions');
     actionsEl.innerHTML = '';
-    var againBtn = document.createElement('button');
-    againBtn.className = 'btn-scan-again';
-    againBtn.textContent = 'Try Again';
-    againBtn.addEventListener('click', function() { resultCard.className = 'result-card'; });
-    actionsEl.appendChild(againBtn);
+    var again = document.createElement('button');
+    again.className = 'btn-scan-again'; again.textContent = 'Try Again';
+    again.addEventListener('click', function() { resultCard.className = 'result-card'; });
+    actionsEl.appendChild(again);
   }
+
+  function escapeHtml(str) { var d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 })();
 </script>
 </body>
