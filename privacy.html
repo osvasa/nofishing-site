@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy Policy — NøFishing AI</title>
+<meta name="description" content="NøFishing AI Privacy Policy. Learn what we collect, what we don't, and how we protect your data.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#EC220C;--black:#111111;--white:#ffffff;}
+body{font-family:'Inter',sans-serif;background:var(--red);color:var(--white);min-height:100vh;display:flex;flex-direction:column;}
+
+nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:600;color:var(--white);text-decoration:none;opacity:0.8;transition:opacity 0.2s;}
+.nav-links a:hover{opacity:1;}
+@media(max-width:520px){nav{padding:0 16px;}nav img{height:20px!important;}.nav-links{gap:16px;}.nav-links a{font-size:11px;}}
+
+.page-card{background:var(--black);border-radius:16px;max-width:700px;width:100%;margin:48px auto;padding:48px 40px 56px;flex:1;}
+@media(max-width:520px){.page-card{margin:24px 16px;padding:32px 20px 40px;border-radius:12px;}}
+.page-card h1{font-size:32px;font-weight:900;color:var(--red);margin-bottom:8px;}
+.page-updated{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:32px;}
+.page-card h2{font-size:20px;font-weight:800;color:var(--red);margin:28px 0 12px;}
+.page-card p,.page-card li{font-size:14px;line-height:1.8;color:rgba(255,255,255,0.85);margin-bottom:12px;}
+.page-card ul{list-style:none;padding:0;}
+.page-card ul li{padding-left:16px;position:relative;}
+.page-card ul li::before{content:'•';position:absolute;left:0;color:var(--red);font-weight:900;}
+.page-card a{color:var(--red);text-decoration:none;font-weight:600;}
+.page-card a:hover{text-decoration:underline;}
+
+.footer-bottom{background:#222;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:space-between;padding:16px 48px;font-size:12px;line-height:1.7;margin-top:auto;}
+.footer-bottom-left strong{color:rgba(255,255,255,0.9);font-size:13px;font-weight:700;}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{color:rgba(255,255,255,0.6);font-size:12px;text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--white);}
+@media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" style="text-decoration:none;">
+    <img src="images/logo.png" alt="NOFISHING AI" style="height:30px;width:auto;display:block;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#how-it-works">How It Works</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+  </ul>
+</nav>
+
+<div class="page-card">
+  <h1>Privacy Policy</h1>
+  <p class="page-updated">Last updated: March 20, 2026</p>
+
+  <h2>What We Do NOT Collect</h2>
+  <p>We do not store the URLs you visit. We do not access your passwords, personal data, or browsing history. We never sell your data. Ever.</p>
+
+  <h2>What We Collect</h2>
+  <ul>
+    <li>Your email address (for account authentication)</li>
+    <li>Subscription status (to verify active protection)</li>
+    <li>Payment is handled entirely by Stripe — we never see or store your card details</li>
+  </ul>
+
+  <h2>How We Use Your Data</h2>
+  <p>Your email is used solely to manage your account and send essential service communications. Nothing else.</p>
+
+  <h2>Third-Party Services</h2>
+  <ul>
+    <li>Stripe handles all payment processing securely</li>
+    <li>Supabase manages account authentication</li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p><a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a></p>
+</div>
+
+<div class="footer-bottom">
+  <div class="footer-bottom-left">
+    <strong>AI-Powered Phishing Protection</strong>
+    Copyright &copy; 2026 NøFishing AI &mdash; All Rights Reserved.
+  </div>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Use</a>
+    <a href="mailto:hello@nofishing.ai">Contact Us</a>
+  </div>
+</div>
+
+</body>
+</html>
