@@ -96,10 +96,12 @@ module.exports = async (req, res) => {
     const threats = threatsRange ? parseInt(threatsRange.split('/')[1]) || 0 : 0;
 
     const lastScan = Array.isArray(recentScans) && recentScans.length > 0 ? recentScans[0] : null;
+    const safeRate = total === 0 ? 100 : Math.round(((total - threats) / total) * 100);
 
     return res.status(200).json({
       total,
       threats,
+      safeRate,
       lastScan,
       recentScans: Array.isArray(recentScans) ? recentScans : [],
     });

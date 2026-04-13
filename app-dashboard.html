@@ -66,7 +66,7 @@ body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);m
     <div class="stats">
       <div class="stat-box"><div class="stat-num" id="s-total">0</div><div class="stat-label">URLs Checked</div></div>
       <div class="stat-box"><div class="stat-num" id="s-threats">0</div><div class="stat-label">Threats Caught</div></div>
-      <div class="stat-box"><div class="stat-num none" id="s-last">—</div><div class="stat-label">Last Scan</div></div>
+      <div class="stat-box"><div class="stat-num safe" id="s-rate">100%</div><div class="stat-label">Safe Rate</div></div>
     </div>
 
     <div class="card">
@@ -154,12 +154,10 @@ body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);m
         document.getElementById('s-total').textContent = stats.total || 0;
         document.getElementById('s-threats').textContent = stats.threats || 0;
 
-        if (stats.lastScan) {
-          var lastEl = document.getElementById('s-last');
-          var labels = { safe: 'SAFE', warning: 'WARN', danger: 'RISK' };
-          lastEl.textContent = labels[stats.lastScan.result] || '—';
-          lastEl.className = 'stat-num ' + (stats.lastScan.result || 'none');
-        }
+        var rate = stats.safeRate !== undefined ? stats.safeRate : 100;
+        var rateEl = document.getElementById('s-rate');
+        rateEl.textContent = rate + '%';
+        rateEl.className = 'stat-num ' + (rate >= 90 ? 'safe' : rate >= 70 ? 'warning' : 'danger');
 
         var container = document.getElementById('recent-scans');
         if (stats.recentScans && stats.recentScans.length > 0) {
