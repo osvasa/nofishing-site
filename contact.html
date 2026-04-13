@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Privacy Policy — NøFishing AI</title>
-<meta name="description" content="NøFishing AI Privacy Policy. Learn what we collect, what we don't, and how we protect your data.">
+<title>Contact Us — NøFishing AI</title>
+<meta name="description" content="Get in touch with NøFishing AI. Questions, feedback, or support — we'd love to hear from you.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -22,14 +22,22 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 .page-back:hover{opacity:1;}
 .content{max-width:700px;margin:0 auto;padding:48px 32px 64px;flex:1;}
 .content h1{font-size:32px;font-weight:900;color:var(--black);margin-bottom:8px;}
-.page-updated{font-size:13px;color:#999;margin-bottom:32px;}
-.content h2{font-size:20px;font-weight:800;color:var(--black);margin:28px 0 12px;}
-.content p,.content li{font-size:14px;line-height:1.8;color:#444;margin-bottom:12px;}
-.content ul{list-style:none;padding:0;}
-.content ul li{padding-left:16px;position:relative;}
-.content ul li::before{content:'•';position:absolute;left:0;color:var(--red);font-weight:900;}
+.content p{font-size:14px;line-height:1.8;color:#444;margin-bottom:12px;}
 .content a{color:var(--red);text-decoration:none;font-weight:600;}
 .content a:hover{text-decoration:underline;}
+
+.contact-email-block{margin-top:8px;margin-bottom:8px;}
+.contact-email-block a{font-size:18px;font-weight:700;}
+.contact-email-block p{font-size:13px;color:#999;margin-top:4px;}
+
+.contact-form{margin-top:24px;}
+.contact-form label{display:block;font-size:12px;font-weight:700;color:#999;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;margin-top:20px;}
+.contact-form input,.contact-form select,.contact-form textarea{width:100%;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;color:var(--black);font-family:'Inter',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color 0.2s;}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:var(--red);}
+.contact-form textarea{min-height:120px;resize:vertical;}
+.contact-form select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.contact-form button{margin-top:24px;display:block;width:100%;background:var(--red);color:var(--white);border:none;border-radius:8px;padding:16px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:opacity 0.2s;}
+.contact-form button:hover{opacity:0.9;}
 
 .footer-top{background:var(--white);padding:48px 60px;display:flex;justify-content:space-between;gap:40px;border-top:1px solid #eee;}
 .footer-col:first-child{max-width:500px;}
@@ -60,30 +68,35 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 
 <div class="content">
   <a href="/" class="page-back">&#8592; Back</a>
-  <h1>Privacy Policy</h1>
-  <p class="page-updated">Last updated: March 20, 2026</p>
+  <h1>Contact Us</h1>
+  <p>We'd love to hear from you.</p>
 
-  <h2>What We Do NOT Collect</h2>
-  <p>We do not store the URLs you visit. We do not access your passwords, personal data, or browsing history. We never sell your data. Ever.</p>
+  <div class="contact-email-block">
+    <a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a>
+    <p>We typically respond within 24 hours.</p>
+  </div>
 
-  <h2>What We Collect</h2>
-  <ul>
-    <li>Your email address (for account authentication)</li>
-    <li>Subscription status (to verify active protection)</li>
-    <li>Payment is handled entirely by Stripe — we never see or store your card details</li>
-  </ul>
+  <form class="contact-form" onsubmit="submitContact(event)">
+    <label for="c-name">Name</label>
+    <input type="text" id="c-name" name="name" required>
 
-  <h2>How We Use Your Data</h2>
-  <p>Your email is used solely to manage your account and send essential service communications. Nothing else.</p>
+    <label for="c-email">Email</label>
+    <input type="email" id="c-email" name="email" required>
 
-  <h2>Third-Party Services</h2>
-  <ul>
-    <li>Stripe handles all payment processing securely</li>
-    <li>Supabase manages account authentication</li>
-  </ul>
+    <label for="c-subject">Subject</label>
+    <select id="c-subject" name="subject" required>
+      <option value="" disabled selected>Select a subject</option>
+      <option value="General Question">General Question</option>
+      <option value="Billing">Billing</option>
+      <option value="Technical Support">Technical Support</option>
+      <option value="Other">Other</option>
+    </select>
 
-  <h2>Contact</h2>
-  <p><a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a></p>
+    <label for="c-message">Message</label>
+    <textarea id="c-message" name="message" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
 </div>
 
 <div class="footer-top">
@@ -108,6 +121,10 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
     <a href="/contact">Contact Us</a>
   </div>
 </div>
+
+<script>
+function submitContact(e){e.preventDefault();var f=e.target;var subject=encodeURIComponent(f.subject.value);var body=encodeURIComponent('Name: '+f.name.value+'\n\n'+f.message.value);window.location.href='mailto:hello@nofishing.ai?subject='+subject+'&body='+body;}
+</script>
 
 </body>
 </html>
