@@ -11,6 +11,9 @@
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" },
     { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/scan", "destination": "/scan.html" }
+    { "source": "/scan", "destination": "/scan.html" },
+    { "source": "/app", "destination": "/app.html" },
+    { "source": "/app/dashboard", "destination": "/app-dashboard.html" },
+    { "source": "/app/account", "destination": "/app-account.html" }
   ]
 }

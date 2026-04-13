@@ -1,0 +1,20 @@
+{
+  "name": "NøFishing AI",
+  "short_name": "NøFishing",
+  "start_url": "/app",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#EC220C",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

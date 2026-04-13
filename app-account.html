@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>NøFishing AI — Account</title>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="theme-color" content="#111111"/>
+<link rel="manifest" href="/manifest.json"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#EC220C;--black:#111111;--white:#ffffff;}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #222;}
+.topbar img{height:24px;width:auto;}
+.btn-back{background:none;border:none;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;padding:0;transition:color 0.2s;}
+.btn-back:hover{color:var(--white);}
+.content{flex:1;padding:24px 20px 100px;max-width:480px;width:100%;margin:0 auto;}
+h1{font-size:22px;font-weight:900;margin-bottom:4px;}
+.subtitle{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:24px;}
+.card{background:#1a1a1a;border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid #222;}
+.card-title{font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+.card-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;}
+.card-label{font-size:12px;color:rgba(255,255,255,0.45);font-weight:600;}
+.card-value{font-size:12px;color:var(--white);font-weight:500;text-align:right;max-width:60%;word-break:break-all;}
+.btn-action{display:block;width:100%;padding:14px;background:#1a1a1a;color:var(--white);border:1px solid #333;border-radius:12px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;text-align:center;text-decoration:none;transition:background 0.15s;}
+.btn-action:hover{background:#222;}
+.btn-logout{display:block;width:100%;padding:14px;background:var(--red);color:var(--white);border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:24px;transition:opacity 0.15s;}
+.btn-logout:hover{opacity:0.9;}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0 env(safe-area-inset-bottom, 10px);z-index:100;}
+.bottomnav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,0.35);font-size:10px;font-weight:600;transition:color 0.2s;}
+.bottomnav a.active{color:var(--red);}
+.bottomnav svg{width:20px;height:20px;}
+.loading{text-align:center;padding:40px 0;color:rgba(255,255,255,0.3);font-size:13px;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <button class="btn-back" onclick="window.location.href='/app/dashboard'">&#8592; Back</button>
+  <img src="images/logo.png" alt="NøFishing AI"/>
+</div>
+
+<div class="content">
+  <div class="loading" id="loading">Loading...</div>
+  <div id="account" style="display:none;">
+    <h1>Account</h1>
+    <p class="subtitle">Manage your NøFishing AI subscription.</p>
+
+    <div class="card">
+      <div class="card-title">Subscription</div>
+      <div class="card-row"><span class="card-label">Email</span><span class="card-value" id="a-email">—</span></div>
+      <div class="card-row"><span class="card-label">Plan</span><span class="card-value" id="a-plan">—</span></div>
+      <div class="card-row"><span class="card-label">Next renewal</span><span class="card-value" id="a-renewal">—</span></div>
+      <div class="card-row"><span class="card-label">License</span><span class="card-value" id="a-license">—</span></div>
+      <div class="card-row"><span class="card-label">Member since</span><span class="card-value" id="a-since">—</span></div>
+    </div>
+
+    <a href="#" class="btn-action" id="btn-manage-sub">Manage Subscription</a>
+    <a href="/reset-password" class="btn-action">Change Password</a>
+
+    <button class="btn-logout" id="btn-logout">Log Out</button>
+  </div>
+</div>
+
+<div class="bottomnav">
+  <a href="/app/dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Dashboard
+  </a>
+  <a href="/scan">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+    Scan
+  </a>
+  <a href="/app/account" class="active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Account
+  </a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function() {
+  var SUPABASE_URL = 'https://pbdlyfdcrqeddqixbqoy.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_rezQfX2x_cmLfB7iFu6vJg_BRJAPrjp';
+  var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Auth guard
+  sb.auth.getSession().then(function(res) {
+    if (!res.data.session) {
+      window.location.href = '/app';
+      return;
+    }
+    loadAccount(res.data.session);
+  });
+
+  // Logout
+  document.getElementById('btn-logout').addEventListener('click', async function() {
+    await sb.auth.signOut();
+    window.location.href = '/app';
+  });
+
+  async function loadAccount(session) {
+    var userId = session.user.id;
+    var email = session.user.email;
+
+    var profileRes = await sb.from('profiles').select('first_name, plan, activated, created_at, email, next_renewal').eq('id', userId).single();
+    var profile = profileRes.data;
+
+    if (!profile || !profile.activated) {
+      window.location.href = '/app';
+      return;
+    }
+
+    document.getElementById('a-email').textContent = profile.email || email;
+    document.getElementById('a-plan').textContent = profile.plan === 'yearly' ? 'Yearly Protection $49.99/yr' : 'Monthly Protection $4.99/mo';
+
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    if (profile.next_renewal) {
+      var r = new Date(profile.next_renewal);
+      document.getElementById('a-renewal').textContent = months[r.getMonth()] + ' ' + r.getDate() + ', ' + r.getFullYear();
+    }
+
+    if (profile.created_at) {
+      var c = new Date(profile.created_at);
+      document.getElementById('a-since').textContent = months[c.getMonth()] + ' ' + c.getDate() + ', ' + c.getFullYear();
+    }
+
+    var clean = userId.replace(/-/g, '');
+    document.getElementById('a-license').textContent = 'NFAI-' + clean.substring(0,4).toUpperCase() + '-' + clean.substring(4,8).toUpperCase();
+
+    // Manage subscription — placeholder URL
+    document.getElementById('btn-manage-sub').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('mailto:hello@nofishing.ai?subject=Manage Subscription&body=Email: ' + encodeURIComponent(profile.email || email), '_blank');
+    });
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('account').style.display = 'block';
+  }
+})();
+</script>
+</body>
+</html>

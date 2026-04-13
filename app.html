@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>NøFishing AI — Sign In</title>
+<meta name="description" content="Sign in to your NøFishing AI account.">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="theme-color" content="#111111"/>
+<link rel="manifest" href="/manifest.json"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#EC220C;--black:#111111;--white:#ffffff;}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+.header{padding:24px 24px 0;text-align:center;}
+.header img{height:28px;width:auto;}
+.main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 24px 48px;max-width:400px;width:100%;margin:0 auto;}
+h1{font-size:24px;font-weight:900;text-align:center;margin-bottom:6px;}
+.subtitle{font-size:13px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:32px;}
+label{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;margin-top:18px;}
+input[type="email"],input[type="password"]{width:100%;padding:14px;background:#1a1a1a;border:1px solid #333;border-radius:10px;color:var(--white);font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border-color 0.2s;-webkit-appearance:none;}
+input:focus{border-color:var(--red);}
+input::placeholder{color:rgba(255,255,255,0.25);}
+.btn-login{display:block;width:100%;padding:16px;background:var(--red);color:var(--white);border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:24px;transition:opacity 0.15s;}
+.btn-login:hover{opacity:0.9;}
+.btn-login:disabled{opacity:0.5;cursor:not-allowed;}
+.error-msg{display:none;background:rgba(236,34,12,0.1);border:1px solid var(--red);border-radius:8px;padding:12px;font-size:13px;color:var(--red);text-align:center;margin-top:16px;line-height:1.5;}
+.error-msg.show{display:block;}
+.links{text-align:center;margin-top:20px;}
+.links a{font-size:13px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s;}
+.links a:hover{color:var(--white);}
+.footer{text-align:center;padding:16px 24px;font-size:11px;color:rgba(255,255,255,0.15);}
+</style>
+</head>
+<body>
+<div class="header"><a href="/"><img src="images/logo.png" alt="NøFishing AI"/></a></div>
+<div class="main">
+  <h1>Sign In</h1>
+  <p class="subtitle">Access your NøFishing AI account.</p>
+  <form id="login-form" autocomplete="on">
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="you@example.com" required autocomplete="email"/>
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Your password" required autocomplete="current-password"/>
+    <button type="submit" class="btn-login" id="btn-login">Sign In</button>
+  </form>
+  <div class="error-msg" id="error-msg"></div>
+  <div class="links">
+    <a href="/reset-password">Forgot password?</a>
+  </div>
+</div>
+<div class="footer">NøFishing AI &mdash; AI-Powered Phishing Protection</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function() {
+  var SUPABASE_URL = 'https://pbdlyfdcrqeddqixbqoy.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_rezQfX2x_cmLfB7iFu6vJg_BRJAPrjp';
+  var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Check if already logged in
+  sb.auth.getSession().then(function(res) {
+    if (res.data.session) {
+      checkProfileAndRedirect(res.data.session);
+    }
+  });
+
+  function checkProfileAndRedirect(session) {
+    sb.from('profiles').select('activated').eq('id', session.user.id).single().then(function(res) {
+      if (res.data && res.data.activated) {
+        window.location.href = '/app/dashboard';
+      }
+    });
+  }
+
+  document.getElementById('login-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var errEl = document.getElementById('error-msg');
+    errEl.className = 'error-msg';
+    var btn = document.getElementById('btn-login');
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+
+    var email = document.getElementById('email').value.trim();
+    var password = document.getElementById('password').value;
+
+    try {
+      var result = await sb.auth.signInWithPassword({ email: email, password: password });
+      if (result.error) {
+        errEl.textContent = result.error.message;
+        errEl.className = 'error-msg show';
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        return;
+      }
+
+      var profile = await sb.from('profiles').select('activated').eq('id', result.data.user.id).single();
+      if (profile.data && profile.data.activated) {
+        window.location.href = '/app/dashboard';
+      } else {
+        errEl.innerHTML = 'Your subscription is not active. <a href="/payment?email=' + encodeURIComponent(email) + '" style="color:#EC220C;font-weight:700;">Complete payment</a>';
+        errEl.className = 'error-msg show';
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+      }
+    } catch (err) {
+      errEl.textContent = 'Something went wrong. Please try again.';
+      errEl.className = 'error-msg show';
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+    }
+  });
+})();
+</script>
+</body>
+</html>
