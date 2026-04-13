@@ -9,54 +9,23 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--red:#EC220C;--black:#111111;--white:#ffffff;}
-body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column;}
-
-nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.nav-links{display:flex;gap:32px;list-style:none;}
-.nav-links a{font-size:13px;font-weight:600;color:var(--white);text-decoration:none;opacity:0.8;transition:opacity 0.2s;}
-.nav-links a:hover{opacity:1;}
-@media(max-width:520px){nav{padding:0 16px;}nav img{height:20px!important;}.nav-links{gap:16px;}.nav-links a{font-size:11px;}}
-@media(max-width:360px){.nav-links{gap:10px;}.nav-links a{font-size:10px;}nav img{height:18px!important;}}
+body{font-family:'Inter',sans-serif;background:#111111;color:#ffffff;overflow-x:hidden;min-height:100vh;}
 
 .page-back{display:inline-flex;align-items:center;gap:6px;color:var(--red);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;text-decoration:none;margin-bottom:32px;opacity:0.8;transition:opacity 0.2s;}
 .page-back:hover{opacity:1;}
-.content{max-width:800px;margin:0 auto;padding:60px 40px;flex:1;}
-.content h1{font-size:32px;font-weight:900;color:#111111;margin-bottom:8px;}
-.page-updated{font-size:13px;color:#999;margin-bottom:32px;}
-.content h2{font-size:20px;font-weight:800;color:#111111;margin:28px 0 12px;}
-.content p,.content li{font-size:14px;line-height:1.8;color:#444444;margin-bottom:12px;}
+.content{max-width:800px;margin:0 auto;padding:60px 40px;}
+.content h1{font-size:32px;font-weight:900;color:#EC220C;margin-bottom:8px;}
+.page-updated{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:32px;}
+.content h2{font-size:20px;font-weight:800;color:#EC220C;margin:28px 0 12px;}
+.content p,.content li{font-size:14px;line-height:1.8;color:#ffffff;margin-bottom:12px;}
 .content ul{list-style:none;padding:0;}
 .content ul li{padding-left:16px;position:relative;}
 .content ul li::before{content:'•';position:absolute;left:0;color:var(--red);font-weight:900;}
 .content a{color:var(--red);text-decoration:none;font-weight:600;}
 .content a:hover{text-decoration:underline;}
-
-.footer-top{background:var(--white);padding:48px 60px;display:flex;justify-content:space-between;gap:40px;border-top:1px solid #eee;}
-.footer-col:first-child{max-width:500px;}
-@media(max-width:680px){.footer-top{flex-direction:column;padding:36px 24px;gap:28px;}.footer-col{max-width:100%!important;}}
-.footer-col h4{font-size:13px;font-weight:700;margin-bottom:12px;}
-.footer-col p,.footer-col a{font-size:13px;line-height:1.75;color:#555;text-decoration:none;display:block;}
-.footer-col a:hover{color:var(--red);}
-.footer-bottom{background:#222;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:space-between;padding:16px 48px;font-size:12px;line-height:1.7;}
-.footer-bottom-left strong{color:rgba(255,255,255,0.9);font-size:13px;font-weight:700;}
-.footer-links{display:flex;gap:16px;}
-.footer-links a{color:rgba(255,255,255,0.6);font-size:12px;text-decoration:none;transition:color 0.2s;}
-.footer-links a:hover{color:var(--white);}
-@media(max-width:680px){.footer-bottom{flex-direction:column;text-align:center;gap:12px;padding:16px 24px;}.footer-links{justify-content:center;}}
 </style>
 </head>
 <body>
-
-<nav>
-  <a href="/" style="text-decoration:none;">
-    <img src="images/logo.png" alt="NOFISHING AI" style="height:30px;width:auto;display:block;">
-  </a>
-  <ul class="nav-links">
-    <li><a href="/#how-it-works">How It Works</a></li>
-    <li><a href="/#pricing">Pricing</a></li>
-    <li><a href="/#faq">FAQ</a></li>
-  </ul>
-</nav>
 
 <div class="content">
   <a href="/" class="page-back">&#8592; Back</a>
@@ -84,29 +53,6 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 
   <h2>Contact</h2>
   <p><a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a></p>
-</div>
-
-<div class="footer-top">
-  <div class="footer-col">
-    <h4>Our Mission</h4>
-    <p>At NøFishing AI, our goal is to make the internet safer for everyone — eliminating phishing and fraud, one user at a time.</p>
-  </div>
-  <div class="footer-col">
-    <h4>Contact Us</h4>
-    <p>Have questions or feedback?<br>We'd love to hear from you!</p>
-    <a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a>
-  </div>
-</div>
-<div class="footer-bottom">
-  <div class="footer-bottom-left">
-    <strong>AI-Powered Phishing Protection</strong>
-    Copyright &copy; 2026 NøFishing AI &mdash; All Rights Reserved.
-  </div>
-  <div class="footer-links">
-    <a href="/privacy">Privacy Policy</a>
-    <a href="/terms">Terms of Use</a>
-    <a href="/contact">Contact Us</a>
-  </div>
 </div>
 
 </body>
