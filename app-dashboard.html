@@ -110,62 +110,78 @@ body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);m
     window.location.href = '/app';
   });
 
+  function showDashboard() {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+  }
+
   async function loadDashboard(session) {
     var userId = session.user.id;
     var email = session.user.email;
 
-    var profileRes = await sb.from('profiles').select('first_name, plan, activated, created_at, email').eq('id', userId).single();
-    var profile = profileRes.data;
+    // Timeout: show dashboard with zeros after 5 seconds no matter what
+    var loadingTimeout = setTimeout(function() {
+      console.log('[NøFishing] Dashboard load timeout — showing with defaults');
+      showDashboard();
+    }, 5000);
 
-    if (!profile || !profile.activated) { window.location.href = '/app'; return; }
-
-    var firstName = profile.first_name || 'there';
-    firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-    document.getElementById('welcome-name').textContent = 'Welcome back, ' + firstName;
-    document.getElementById('d-email').textContent = profile.email || email;
-    document.getElementById('d-plan').textContent = profile.plan === 'yearly' ? 'Yearly $49.99/yr' : 'Monthly $4.99/mo';
-
-    if (profile.created_at) {
-      var d = new Date(profile.created_at);
-      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      document.getElementById('d-since').textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
-    }
-
-    var clean = userId.replace(/-/g, '');
-    document.getElementById('d-license').textContent = 'NFAI-' + clean.substring(0,4).toUpperCase() + '-' + clean.substring(4,8).toUpperCase();
-
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-
-    // Load scan stats
     try {
-      var statsRes = await fetch('/api/get-scan-stats?email=' + encodeURIComponent(profile.email || email));
-      var stats = await statsRes.json();
+      var profileRes = await sb.from('profiles').select('first_name, plan, activated, created_at, email').eq('id', userId).single();
+      var profile = profileRes.data;
 
-      document.getElementById('s-total').textContent = stats.total || 0;
-      document.getElementById('s-threats').textContent = stats.threats || 0;
-
-      if (stats.lastScan) {
-        var lastEl = document.getElementById('s-last');
-        var labels = { safe: 'SAFE', warning: 'WARN', danger: 'RISK' };
-        lastEl.textContent = labels[stats.lastScan.result] || '—';
-        lastEl.className = 'stat-num ' + (stats.lastScan.result || 'none');
+      if (!profile || !profile.activated) {
+        clearTimeout(loadingTimeout);
+        window.location.href = '/app';
+        return;
       }
 
-      var container = document.getElementById('recent-scans');
-      if (stats.recentScans && stats.recentScans.length > 0) {
-        container.innerHTML = '';
-        stats.recentScans.forEach(function(scan) {
-          var item = document.createElement('div');
-          item.className = 'scan-item';
-          var truncUrl = scan.url.length > 40 ? scan.url.substring(0, 40) + '...' : scan.url;
-          item.innerHTML = '<span class="scan-badge ' + scan.result + '"></span>'
-            + '<span class="scan-url">' + escapeHtml(truncUrl) + '</span>'
-            + '<span class="scan-time">' + timeAgo(scan.scanned_at) + '</span>';
-          container.appendChild(item);
-        });
+      var firstName = profile.first_name || 'there';
+      firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+      document.getElementById('welcome-name').textContent = 'Welcome back, ' + firstName;
+
+      clearTimeout(loadingTimeout);
+      showDashboard();
+
+      // Load scan stats
+      var statsEmail = profile.email || email;
+      console.log('[NøFishing] Loading scan stats for:', statsEmail);
+
+      try {
+        var statsRes = await fetch('/api/get-scan-stats?email=' + encodeURIComponent(statsEmail));
+        if (!statsRes.ok) throw new Error('API returned ' + statsRes.status);
+        var stats = await statsRes.json();
+
+        document.getElementById('s-total').textContent = stats.total || 0;
+        document.getElementById('s-threats').textContent = stats.threats || 0;
+
+        if (stats.lastScan) {
+          var lastEl = document.getElementById('s-last');
+          var labels = { safe: 'SAFE', warning: 'WARN', danger: 'RISK' };
+          lastEl.textContent = labels[stats.lastScan.result] || '—';
+          lastEl.className = 'stat-num ' + (stats.lastScan.result || 'none');
+        }
+
+        var container = document.getElementById('recent-scans');
+        if (stats.recentScans && stats.recentScans.length > 0) {
+          container.innerHTML = '';
+          stats.recentScans.forEach(function(scan) {
+            var item = document.createElement('div');
+            item.className = 'scan-item';
+            var truncUrl = scan.url.length > 40 ? scan.url.substring(0, 40) + '...' : scan.url;
+            item.innerHTML = '<span class="scan-badge ' + scan.result + '"></span>'
+              + '<span class="scan-url">' + escapeHtml(truncUrl) + '</span>'
+              + '<span class="scan-time">' + timeAgo(scan.scanned_at) + '</span>';
+            container.appendChild(item);
+          });
+        }
+      } catch (statsErr) {
+        console.log('[NøFishing] Scan stats fetch failed:', statsErr.message);
       }
-    } catch (e) {}
+    } catch (err) {
+      console.log('[NøFishing] Dashboard load error:', err.message);
+      clearTimeout(loadingTimeout);
+      showDashboard();
+    }
   }
 
   function timeAgo(dateStr) {
