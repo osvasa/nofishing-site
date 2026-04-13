@@ -210,22 +210,23 @@ canvas{display:none;}
   document.getElementById('btn-check').addEventListener('click', function() {
     var url = document.getElementById('manual-url').value.trim();
     if (!url) return;
+    document.getElementById('manual-url').value = '';
     analyzeDetectedUrl(url);
   });
 
   document.getElementById('manual-url').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
       var url = this.value.trim();
-      if (url) analyzeDetectedUrl(url);
+      if (url) { this.value = ''; analyzeDetectedUrl(url); }
     }
   });
 
   // ── Analysis ──
 
   function analyzeDetectedUrl(rawUrl) {
-    var url = rawUrl.trim();
+    var url = rawUrl.trim().replace(/^url:\s*/i, '');
     if (!/^https?:\/\//i.test(url) && /^[a-z0-9]/i.test(url) && url.includes('.')) {
-      url = 'http://' + url;
+      url = 'https://' + url;
     }
 
     resultCard.className = 'result-card';

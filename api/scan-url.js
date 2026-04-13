@@ -365,10 +365,10 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'url is required' });
     }
 
-    // Normalize: add protocol if missing
-    let normalizedUrl = url.trim();
-    if (!/^https?:\/\//i.test(normalizedUrl) && /^[a-z0-9]/i.test(normalizedUrl)) {
-      normalizedUrl = 'http://' + normalizedUrl;
+    // Sanitize input
+    let normalizedUrl = url.trim().replace(/^url:\s*/i, '');
+    if (!/^https?:\/\//i.test(normalizedUrl)) {
+      normalizedUrl = 'https://' + normalizedUrl;
     }
 
     const result = analyzeUrl(normalizedUrl);
