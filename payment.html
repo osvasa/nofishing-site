@@ -329,7 +329,7 @@ function hidePage(id){document.getElementById('page-'+id).classList.remove('acti
 })();
 
 // ── Stripe Elements ──
-var stripe = Stripe('pk_test_51QsFAtGMOsHNfb5uORxtRHFx4IeVezI4P4xt73CHGuy6iOlzz3iAkWnCcEb1QCTyF8a20AwgUzZQLs807KhfQzQs00DTw4vY6n');
+var stripe = Stripe('pk_live_51QsFAtGMOsHNfb5uw2z46dz1hWhKL4zTmD0pv0O9huDf3V7KrZc9SbDJA5phJu0xZh4ELGJJmomkvmefuiVcakle00DWP9QWiu');
 var elements = stripe.elements();
 var cardElement = elements.create('card', {
   style: {
