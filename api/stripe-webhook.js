@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Invalid signature' });
   }
 
-  if (event.type !== 'invoice.paid' && event.type !== 'invoice.payment_succeeded') {
+  if (event.type !== 'invoice.paid') {
     return res.status(200).json({ received: true });
   }
 
@@ -112,49 +112,30 @@ module.exports = async (req, res) => {
       // Profile DOES NOT EXIST — find auth user and create profile
       console.log(`No profile found for ${email}, looking up auth user...`);
 
-      // Look up user in Supabase auth via admin API
-      const authResponse = await fetch(
-        `${supabaseUrl}/auth/v1/admin/users?page=1&per_page=1`,
-        {
-          method: 'GET',
-          headers: {
-            'apikey': supabaseKey,
-            'Authorization': `Bearer ${supabaseKey}`,
-          },
-        }
-      );
-
+      // Look up user in Supabase auth via admin API (direct email lookup)
       let userId = null;
       let firstName = '';
       let lastName = '';
 
-      if (authResponse.ok) {
-        // Search through users — admin API doesn't filter by email, so use alternate approach
-        const usersListResponse = await fetch(
-          `${supabaseUrl}/auth/v1/admin/users`,
-          {
-            method: 'GET',
-            headers: {
-              'apikey': supabaseKey,
-              'Authorization': `Bearer ${supabaseKey}`,
-            },
-          }
-        );
+      const { createClient } = require('@supabase/supabase-js');
+      const supabaseAdmin = createClient(supabaseUrl, supabaseKey);
+      const { data: { users }, error: listError } = await supabaseAdmin.auth.admin.listUsers({
+        filter: `email.eq.${email}`,
+      });
 
-        if (usersListResponse.ok) {
-          const usersData = await usersListResponse.json();
-          const users = usersData.users || usersData;
-          const matchedUser = Array.isArray(users) ? users.find(u => u.email === email) : null;
+      if (listError) {
+        console.error(`Auth user lookup failed for ${email}:`, listError.message);
+      }
 
-          if (matchedUser) {
-            userId = matchedUser.id;
-            firstName = (matchedUser.user_metadata && matchedUser.user_metadata.first_name) || '';
-            lastName = (matchedUser.user_metadata && matchedUser.user_metadata.last_name) || '';
-            console.log(`Found auth user: id=${userId}, name=${firstName} ${lastName}`);
-          } else {
-            console.error(`No auth user found for ${email}`);
-          }
-        }
+      const authUser = users?.[0] || null;
+
+      if (authUser) {
+        userId = authUser.id;
+        firstName = (authUser.user_metadata && authUser.user_metadata.first_name) || '';
+        lastName = (authUser.user_metadata && authUser.user_metadata.last_name) || '';
+        console.log(`Found auth user: id=${userId}, name=${firstName} ${lastName}`);
+      } else {
+        console.error(`No auth user found for ${email}`);
       }
 
       // Also try to get name from Stripe customer
