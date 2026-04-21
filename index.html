@@ -488,7 +488,7 @@ nav{background:var(--black);padding:0 48px;height:56px;display:flex;align-items:
 
 <script>
 var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-var STORE_URLS={chrome:'https://chrome.google.com/webstore',firefox:'https://addons.mozilla.org/addon/n%C3%B8fishing-ai/',safari:'https://apps.apple.com',edge:'https://microsoftedge.microsoft.com/addons'};
+var STORE_URLS={chrome:'https://chromewebstore.google.com/detail/n%C3%B8fishing-ai/oahbapokcldblibcpbhcjfaakbcddooh',firefox:'https://addons.mozilla.org/addon/n%C3%B8fishing-ai/',safari:'https://apps.apple.com',edge:'https://microsoftedge.microsoft.com/addons'};
 function getBrowserStoreURL(){var ua=navigator.userAgent;if(ua.includes('Edg/'))return STORE_URLS.edge;if(ua.includes('Firefox/'))return STORE_URLS.firefox;if(ua.includes('Safari/')&&!ua.includes('Chrome'))return STORE_URLS.safari;if(ua.includes('Chrome'))return STORE_URLS.chrome;return null;}
 function goToScan(){if(isMobile){window.location.href='/scan';}else{var msg=document.getElementById('scan-desktop-msg');msg.style.display='inline-block';}}
 function goToStore(){if(isMobile){showMobileModal();return;}var url=getBrowserStoreURL();if(url){window.open(url,'_blank');}else{document.getElementById('store-modal').classList.add('active');document.body.style.overflow='hidden';}}
