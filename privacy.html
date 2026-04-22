@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Privacy Policy — NøFishing AI</title>
 <meta name="description" content="NøFishing AI Privacy Policy. Learn what we collect, what we don't, and how we protect your data.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--red:#EC220C;--black:#111111;--white:#ffffff;}
-body{font-family:'Inter',sans-serif;background:#111111;color:#ffffff;overflow-x:hidden;min-height:100vh;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#111111;color:#ffffff;overflow-x:hidden;min-height:100vh;}
 
-.back-link{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.5)!important;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;text-decoration:none;margin-bottom:32px;transition:color 0.2s ease;}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.5)!important;font-size:14px;font-weight:600;text-decoration:none;margin-bottom:32px;transition:color 0.2s ease;}
 .back-link:hover{color:#ffffff!important;}
 .content{max-width:800px;margin:0 auto;padding:60px 40px;}
 .content h1{font-size:32px;font-weight:900;color:#EC220C;margin-bottom:8px;}
@@ -33,14 +32,15 @@ body{font-family:'Inter',sans-serif;background:#111111;color:#ffffff;overflow-x:
   <p class="page-updated">Last updated: April 22, 2026</p>
 
   <h2>Introduction</h2>
-  <p>NøFishing AI respects your privacy. This policy explains what data we collect, how we use it, who we share it with, and your rights regarding your information. By using NøFishing AI, you agree to the practices described in this policy.</p>
+  <p>NøFishing AI is a browser extension that provides comprehensive online protection by detecting phishing websites in real time and blocking malicious ads and trackers that may deliver threats. This privacy policy explains what data we collect, how we use it, who we share it with, and your rights regarding your information. By using NøFishing AI, you agree to the practices described in this policy.</p>
 
   <h2>Information We Collect</h2>
   <p><strong>Account data:</strong> When you create an account, we collect your email address, first name, and last name. This information is provided directly by you during signup.</p>
   <p><strong>Payment data:</strong> All payment processing is handled entirely by Stripe. We do not store, access, or process your credit card number, expiration date, or CVC. Stripe provides us only with a confirmation of payment status.</p>
-  <p><strong>Device data:</strong> We generate a random device identifier (not personally identifiable) and record your browser type. This is used solely to enforce the 2-device limit included in your subscription.</p>
+  <p><strong>Device data:</strong> We generate a random device identifier (not personally identifiable) and record your browser type and operating system (for example, "Mac &mdash; Chrome"). This is used solely to enforce the 2-device limit included in your subscription.</p>
   <p><strong>Local usage data:</strong> The extension stores usage statistics locally on your device, including the count of sites scanned, threats blocked, and trackers stopped. These statistics never leave your device and are never sent to our servers.</p>
-  <p><strong>URL data for grey-zone analysis:</strong> When the extension's local heuristic engine produces an ambiguous threat score (30&ndash;59 out of 100), the URL alone &mdash; with no personal data, cookies, or browsing context &mdash; is sent to Anthropic's Claude AI API for additional safety analysis. These URLs are not stored or retained by NøFishing AI or Anthropic after the analysis is complete.</p>
+  <p><strong>URL data for grey-zone analysis:</strong> When the extension's local heuristic engine produces an ambiguous threat score (30&ndash;59 out of 100), the URL alone &mdash; with no personal data, cookies, or browsing context &mdash; is sent to our server, which forwards it to Anthropic's Claude AI API for additional safety analysis. NøFishing AI does not store these URLs on our servers. Anthropic's data handling practices are governed by their own privacy policy at <a href="https://www.anthropic.com/privacy" target="_blank">anthropic.com/privacy</a>.</p>
+  <p><strong>API communication:</strong> The extension communicates with our servers at nofishing.ai/api to register your device (sending email, device ID, and browser/OS info), verify subscription status, and check activation status after payment. All requests are transmitted over HTTPS.</p>
 
   <h2>Information We Do NOT Collect</h2>
   <ul>
@@ -52,11 +52,22 @@ body{font-family:'Inter',sans-serif;background:#111111;color:#ffffff;overflow-x:
 
   <h2>How We Use Your Information</h2>
   <ul>
-    <li>Provide and maintain the NøFishing AI protection service</li>
+    <li>Provide and maintain the phishing detection and tracker blocking service</li>
     <li>Process subscription payments via Stripe</li>
-    <li>Detect and prevent fraud</li>
-    <li>Improve phishing and scam detection accuracy</li>
+    <li>Detect and block phishing websites and online scams</li>
     <li>Communicate about your account, including welcome emails, payment confirmations, and service updates</li>
+  </ul>
+
+  <h2>Why NøFishing AI Needs These Permissions</h2>
+  <p>The extension requests the following browser permissions to function. Each is required for a specific purpose:</p>
+  <ul>
+    <li><strong>Host permissions (access to all websites):</strong> NøFishing AI requires access to all websites because it must analyze every URL you visit to detect phishing threats in real time. Without this permission, the extension cannot protect you.</li>
+    <li><strong>storage:</strong> To save your subscription status and local protection statistics on your device.</li>
+    <li><strong>tabs:</strong> To display the protection status icon and warn you on dangerous tabs.</li>
+    <li><strong>activeTab:</strong> To scan the URL of the currently active tab when you interact with the extension.</li>
+    <li><strong>webNavigation:</strong> To detect when you navigate to a new page so the extension can scan the URL before the page loads.</li>
+    <li><strong>declarativeNetRequest:</strong> To efficiently block known malicious domains from loading.</li>
+    <li><strong>webRequest:</strong> To block third-party tracking and advertising requests that may contain phishing links or malware.</li>
   </ul>
 
   <h2>Third-Party Services</h2>
@@ -67,6 +78,16 @@ body{font-family:'Inter',sans-serif;background:#111111;color:#ffffff;overflow-x:
     <li><strong>Anthropic</strong> (AI URL analysis): <a href="https://www.anthropic.com/privacy" target="_blank">anthropic.com/privacy</a></li>
     <li><strong>Proton Mail</strong> (email delivery): <a href="https://proton.me/legal/privacy" target="_blank">proton.me/legal/privacy</a></li>
     <li><strong>Vercel</strong> (web hosting): <a href="https://vercel.com/legal/privacy-policy" target="_blank">vercel.com/legal/privacy-policy</a></li>
+  </ul>
+
+  <h2>Data Shared with Third Parties</h2>
+  <p>Below is the specific data shared with each third-party service:</p>
+  <ul>
+    <li><strong>Stripe</strong> (payment processing): Payment card data and email address. Stripe handles all payment information; we never see or store your full card details. See <a href="https://stripe.com/privacy" target="_blank">stripe.com/privacy</a>.</li>
+    <li><strong>Supabase</strong> (authentication and database): Email address, first name, last name, device ID, and subscription activation status. See <a href="https://supabase.com/privacy" target="_blank">supabase.com/privacy</a>.</li>
+    <li><strong>Anthropic</strong> (AI URL analysis): URL only, with no personal data attached. Only ambiguous URLs (threat score 30&ndash;59) are sent for second-opinion analysis. See <a href="https://www.anthropic.com/privacy" target="_blank">anthropic.com/privacy</a>.</li>
+    <li><strong>Proton Mail</strong> (email delivery): Your email address, used to send welcome and activation emails. See <a href="https://proton.me/legal/privacy" target="_blank">proton.me/legal/privacy</a>.</li>
+    <li><strong>Vercel</strong> (web hosting): Processes API requests containing email address and device ID. See <a href="https://vercel.com/legal/privacy-policy" target="_blank">vercel.com/legal/privacy-policy</a>.</li>
   </ul>
 
   <h2>Data Storage and Security</h2>
@@ -81,14 +102,17 @@ body{font-family:'Inter',sans-serif;background:#111111;color:#ffffff;overflow-x:
   <ul>
     <li><strong>Account data:</strong> Retained while your subscription is active, plus 30 days after cancellation to allow for reactivation</li>
     <li><strong>Payment records:</strong> Retained by Stripe per their policy (typically 7 years for legal compliance)</li>
-    <li><strong>Local usage statistics:</strong> Stored only on your device and never sent to our servers. Cleared when you uninstall the extension or log out</li>
+    <li><strong>Local usage statistics:</strong> Stored only on your device and never sent to our servers. Cleared when you uninstall the extension. Logging out also clears local statistics from your device.</li>
   </ul>
+
+  <h2>We Do Not Sell Your Data</h2>
+  <p>NøFishing AI does not sell, rent, or trade your personal data to any third party for marketing or advertising purposes. Data is only shared with the third-party service providers listed above, solely for the purpose of operating the service.</p>
 
   <h2>Your Rights</h2>
   <ul>
     <li><strong>Access:</strong> Request a copy of your data by emailing <a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a></li>
     <li><strong>Deletion:</strong> Request account deletion by emailing <a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a></li>
-    <li><strong>Correction:</strong> Update your information via the extension settings</li>
+    <li><strong>Correction:</strong> Request corrections by emailing <a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a></li>
     <li><strong>Portability:</strong> Request your data in a portable format by emailing <a href="mailto:hello@nofishing.ai">hello@nofishing.ai</a></li>
   </ul>
 
